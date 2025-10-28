@@ -16,135 +16,147 @@ h1{
   font-family: sans-serif;
 }
 /*-----------------header-------------------*/
-.containerheader {
-  width: 100%;
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  border: none;
-  display: flex;
- 
+  font-family: "Poppins", sans-serif;
 }
-/*-----------nav1--------------*/
-.div_nav1 {
-  background-color: rgb(0, 0, 0);
-  display: flex;
+
+/* ===================== NAVBAR ===================== */
+.navbar {
   width: 100%;
- 
+  display: flex;
   flex-direction: column;
 }
-.nav1 {
+
+/* ---- top bar ---- */
+.navbar-top {
+  background-color: #000;
+  color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-direction: row;
-  width: 100%;
-  border: 0px;
+  padding: 10px 30px;
 }
 
-.list1_search_etlungage {
-  position: relative;
+.logo {
+  width: 120px;
+}
+
+.search-lang {
   display: flex;
   align-items: center;
   gap: 15px;
-  right: 20px;
 }
-.personlogo {
-  width: 20px;
-  border-radius: 100%;
-}
-.logodiv {
-  width: fit-content;
-}
-.list1_search_etlungage input {
-  height: 30px;
+
+.search-lang input {
+  height: 35px;
+  width: 200px;
+  border: none;
   border-radius: 20px;
-  padding-left: 10px;
+  padding-left: 15px;
+  outline: none;
 }
-.notificationlogo {
-  width: 25px;
-  height: fit-content;
-}
-.lang {
-  position: relative;
-  display: inline-block;
-  font-family: sans-serif;
-}
-.lang ul {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: #000;
-  color: #fff;
-  list-style: none;
-  padding: 5px 0;
-  border-radius: 5px;
-}
-.lang:hover ul {
-  display: block;
-}
-.lang ul li {
-  padding: 5px 15px;
+
+.search-lang select {
+  border: none;
+  background: #fff;
+  padding: 5px 10px;
+  border-radius: 10px;
   cursor: pointer;
 }
-.lang ul li:hover {
-  background: #00bfff;
-  color: #000;
+
+.notificationlogo {
+  width: 25px;
+  cursor: pointer;
 }
 
-/*-----------nav2--------------*/
-.div_nav2 {
-  background-color: rgb(255, 255, 255);
-  position: relative;
-  display: flex;
-  justify-content: center;
-  margin: 0px;
-  padding: 0px;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.personlogo {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #fff;
 }
-.nav2 {
+
+/* ---- bottom bar ---- */
+.navbar-bottom {
+  background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  justify-content: center;
-  margin: 0px;
-  padding: 0px;
-  gap: 20px;
-  margin-top: 15px;
-}
-.nav2 li a:hover {
-  color: rgb(74, 74, 74);
-  text-decoration-line: underline;
-}
-.logo {
-  width: 100vw;
-}
-.nav2 ul {
-  padding: 1%;
-  margin: 0px;
-}
-.nav2 img {
-  width: 20px;
-}
-.logosocial {
-  width: fit-content;
-}
-li a {
-  text-decoration: none;
-  font-size: 20px;
-  font-weight: 800;
-  color: rgb(0, 0, 0);
+  padding: 10px 0;
+  border-top: 2px solid #ddd;
 }
 
-li {
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 25px;
   list-style: none;
 }
 
-.logo,
-.logofother {
-  width: 50%;
+.nav-links li a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  font-size: 18px;
+  transition: color 0.3s, text-decoration 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.nav-links img {
+  width: 22px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.nav-links img:hover {
+  transform: scale(1.2);
+}
+
+.buttoncontact {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.buttoncontact:hover {
+  background-color: #0056b3;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .navbar-top {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-lang {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 16px;
+  }
+
+  .buttoncontact {
+    padding: 6px 12px;
+  }
 }
 /*---------------main-------------------------*/
 main {
