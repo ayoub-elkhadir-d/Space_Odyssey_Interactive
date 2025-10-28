@@ -162,10 +162,11 @@ h1{
 main {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* تغيير هنا: من center إلى flex-start */
+  justify-content: flex-start; 
   align-items: center;
   flex: 1;
   gap: 30px;
+  
 }
 
 /*----------------hero----------------------*/
@@ -248,6 +249,7 @@ main {
 .card p {
   width: 80%;
 }
+
 .textesetbutton {
   top: 0px;
   position: absolute;
@@ -258,6 +260,7 @@ main {
   justify-content: center;
   flex-direction: column;
 }
+
 .textesetbutton h1,
 .textesetbutton p {
   color: #ffffff;
@@ -316,12 +319,15 @@ h6 {
 /*-------------Astronomy-------------*/
 
 .astronomy_section_div img {
-  min-width: 50%;
+  min-width: 20%;
 }
 .astronomy_section_div {
   display: flex;
-  justify-content: space-between;
-  padding: 1% 2%;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+margin: 10px;
+  flex-wrap: wrap;
   gap: 20px;
   width: fit-content;
   border-radius: 30px;
@@ -350,12 +356,13 @@ h6 {
   right: 5%;
 }
 
-/*-------------image of the day---------------*/
+/*------------- image of the day---------------*/
 
 .imageofday_section_div {
   display: flex;
   width: fit-content;
   height: fit-content;
+  flex-wrap: wrap;
 }
 .imageofday_section_div img {
   border-radius: 50px;
@@ -408,13 +415,14 @@ h1 {
 .contenair_vision_et_mission {
   background-repeat: no-repeat;
   background-size: cover;
+  object-fit: cover;
   background-position: center;
   background-image: url(images/image1158.png);
-  position: relative;
-
+  
+flex-wrap: wrap;
   border-radius: 20px;
   display: flex;
-  width: 80vw;
+  width: 80%;
   height: fit-content;
   flex-direction: row;
   justify-content: space-around;
@@ -443,9 +451,10 @@ h1 {
 
 /*---------------our team------------------*/
 .team_container {
-  width: 80vw;
+  width:100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 }
 .team {
@@ -465,11 +474,13 @@ h1 {
 /*--------------grow_witch_us------------------*/
 .grow_witch_us_container {
   display: flex;
-  width: 80vw;
+  width: 100%;
   height: 100%;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
   gap: 10%;
+  padding: 10px;
 }
 .grow_witch_us_container div {
   width: 25%;
@@ -490,6 +501,7 @@ h1 {
 .cntainer_astronomy_communities {
   width: 30%;
   padding: 10px;
+  margin: 10px;
 }
 .cntainer_astronomy_communities div {
   display: flex;
@@ -517,6 +529,25 @@ h1 {
   color: #ebe9e9;
 }
 
+
+
+
+
+@media (max-width:700px) {
+
+
+.herotext h1 {
+  position: absolute;
+  color: #ffffff;
+  font-size: 3rem;
+  top: 20px;
+}
+  
+.astronomy_paragraph_et_titre p,
+.astronomy_paragraph_et_titre h1 {
+ font-size: 1rem;
+}
+}
 /*----------------------planet----------------*/
 
 .plantescontainer {
