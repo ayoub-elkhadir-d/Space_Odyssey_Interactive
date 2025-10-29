@@ -316,7 +316,7 @@ h6 {
   color: #ffffff;
 }
 
-/*-------------Astronomy-------------*/
+/*-------------Astronomy -------------*/
 
 .astronomy_section_div img {
   min-width: 20%;
@@ -327,6 +327,7 @@ h6 {
   align-items: center;
   padding: 10px;
 margin: 10px;
+
   flex-wrap: wrap;
   gap: 20px;
   width: 80%;
@@ -630,7 +631,6 @@ maisionscontainer {
 }
 .maisionscontainer {
   justify-content: space-around;
-
   gap: 10px;
   display: flex;
   flex-direction: column;
@@ -640,7 +640,18 @@ maisionscontainer {
 .maisionscontainer p {
   color: black;
 }
+.menu_icone{
+align-self: flex-end;
+
+}
+.menu_icone:hover{
+
+background-color: #666;
+border-radius: 10px;
+
+}
 .mission_card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -653,7 +664,7 @@ maisionscontainer {
   justify-content: center;
   align-items: center;
 }
-.mission_card img {
+.misions_img {
   width: 100%;
   border-radius: 10px;
 }
@@ -901,6 +912,9 @@ button:hover {
 /*-------------------------------------------------*/
 
 @media (max-width: 768px) {
+  h1{
+    font-size: 1rem;
+  }
   .cards1 {
     display: flex;
     flex-direction: column;
