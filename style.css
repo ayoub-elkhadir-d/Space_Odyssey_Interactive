@@ -640,10 +640,7 @@ maisionscontainer {
 .maisionscontainer p {
   color: black;
 }
-.menu_icone{
-align-self: flex-end;
 
-}
 .menu_icone:hover{
 
 background-color: #666;
@@ -672,6 +669,40 @@ border-radius: 10px;
   font-size: 1rem;
 }
 
+.choix_et_menu_div{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: flex-end;
+}
+.choix_et_menu_div .menu_icone{
+justify-self: end;
+}
+.menu_choix{
+display: none;
+gap: 10px;
+}
+.menu_choix li{
+  list-style:none;
+  width: fit-content;
+  cursor: pointer;
+}
+.menu_choix li div{
+ display: flex;
+ gap: 10px;
+}
+.menu_choix li div img{
+ width: 15px;
+ height: 15px;
+}
+.menu_choix li div h1:hover{
+ background-color: #666;
+ text-decoration: underline;
+}
+.menu_choix li div h1{
+font-size: 1rem;
+}
 /*------------about_us-------------*/
 
 .aboutus_container {
