@@ -386,7 +386,9 @@ h6 {
   font-size: 300%;
 }
 .imageofday_titre_et_p p {
+  
   font-size: 150%;
+
 }
 .imageofday_titre_et_p p,
 h1 {
@@ -896,7 +898,7 @@ button:hover {
   flex-direction: column;
   gap: 20px;
   box-sizing: border-box;
-  margin-top: auto; /* إضافة هنا: يدفع الـ footer للأسفل إضافي */
+  margin-top: auto; 
 }
 
 .logosocial .logofother {
