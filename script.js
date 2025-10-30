@@ -53,6 +53,7 @@ function aficher(index){
 
 
   for(var t = 0; t < misions.length; t++){  
+    if(misions[t].status==1){
    if(t == index){
           
         container.innerHTML +=`
@@ -72,6 +73,7 @@ function aficher(index){
           
       
     }
+
     else{  
       container.innerHTML +=`  
         <div class="mission_card">  
@@ -92,8 +94,10 @@ function aficher(index){
     }
 
   
-  }  
+  }
 
+
+}
 }
 
 
@@ -110,17 +114,17 @@ return;
 }
 
 aficher(index)
-
-
 }
+
 function suprimer(index){
 
 misions[index].status=0;
 document.getElementById("misions_div").innerHTML=""
 aficher();
 }
+
 function save(index){
-  document.getElementById("popupp").style.display = "none";
+document.getElementById("popupp").style.display = "none";
 misions[index].name = document.getElementById("input_name").value
 misions[index].agency = document.getElementById("input_agence").value
 misions[index].objective = document.getElementById("input_discription").value
