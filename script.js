@@ -48,6 +48,7 @@ let misions = [
 
 aficher();
 function aficher(){
+  
 for(var t =0;t < misions.length;t++ ){
 if(misions[t].status==1){
 document.getElementById("misions_div").innerHTML += `
@@ -70,17 +71,44 @@ document.getElementById("misions_div").innerHTML += `
   </div>
 `;
 }
+}
+}
 
-}
-}
+
+
+
 function edit(index){
+  
+    var a = document.getElementById("popupp")
 
+
+if(a.style.display === "flex"){
+a.style.display = "none"
+return;
+}
+
+  a.innerHTML=`
+  
+                <input type="text" id="input_name" value="${misions[index].name}">
+                <input type="text" id="input_agence" value="${misions[index].agency}">
+                <input type="text" id="input_discription" value="${misions[index].objective}">
+                <input type="text" id="input_date" value="${misions[index].launchDate}">
+                <button id="submit" onclick="save(${index})">submit</button>
+
+
+`
+
+ a.style.display = "flex" 
 
 
 }
-
 function suprimer(index){
 misions[index].status=0;
+document.getElementById("misions_div").innerHTML=""
+aficher();
+}
+function save(index){
+misions[index].name = document.getElementById("input_name").value
 document.getElementById("misions_div").innerHTML=""
 aficher();
 }

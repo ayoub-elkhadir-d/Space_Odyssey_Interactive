@@ -612,11 +612,13 @@ maisionscontainer {
 }
 /*--------------------misions---------------------*/
 .misions_div {
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
+  z-index: 1;
   justify-content: center;
   gap: 20px;
 }
@@ -727,6 +729,20 @@ maisionscontainer {
 }
 .btns:hover{
   background-color: #19802d;
+}
+
+.popup {
+    display: none;
+    flex-direction: column;
+  position: absolute;
+  background-color: #19802d;
+  z-index: 2;
+  gap: 10px;
+  padding: 10px;
+}
+.popup input {
+
+ height: 40px;
 }
 /*------------about_us-------------*/
 
