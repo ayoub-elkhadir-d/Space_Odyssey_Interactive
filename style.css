@@ -722,6 +722,7 @@ maisionscontainer {
  background-image: url("images/favorite_28dp_000000_FILL0_wght400_GRAD0_opsz24.png");
  background-repeat: no-repeat;
  background-position: center;
+ object-fit: cover;
  width: 24px;
 }
 .btn_suprimer:hover{
