@@ -734,7 +734,9 @@ maisionscontainer {
 .popup {
     display: none;
     flex-direction: column;
-  position: absolute;
+  position: fixed;
+  top: 50%;
+  left: 50%;
   background-color: #19802d;
   z-index: 2;
   gap: 10px;

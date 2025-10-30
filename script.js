@@ -47,31 +47,53 @@ let misions = [
 ]
 
 aficher();
-function aficher(){
+function aficher(index){  
+  let container = document.getElementById("misions_div");
+  container.innerHTML = ""; 
+
+
+  for(var t = 0; t < misions.length; t++){  
+   if(t == index){
+          
+        container.innerHTML +=`
+        <div class="mission_card">  
+          <div class="choix_et_menu_div">  
+            
+            <button class="btn_suprimer" onclick="suprimer(${t})"></button>   
+            <button class="btn_favorit" onclick="favorit(${t})"></button>  
+          </div>  
+          <img class="misions_img" src="${misions[t].image}" alt="">  
+           <input type="text" id="input_name" value="${misions[index].name}">
+          <input type="text" id="input_agence" value="${misions[index].agency}">
+          <input type="text" id="input_discription" value="${misions[index].objective}">
+          <input type="text" id="input_date" value="${misions[index].launchDate}">
+          <button id="submit" onclick="save(${index})">submit</button>
+        </div>`; 
+          
+      
+    }
+    else{  
+      container.innerHTML +=`  
+        <div class="mission_card">  
+          <div class="choix_et_menu_div">  
+            <button class="btns" onclick="edit(${t})"></button>   
+            <button class="btn_suprimer" onclick="suprimer(${t})"></button>   
+            <button class="btn_favorit" onclick="favorit(${t})"></button>  
+          </div>  
+          <img class="misions_img" src="${misions[t].image}" alt="">  
+          <h3>${misions[t].name}</h3>  
+          <h3> ${misions[t].agency}</h3>  
+          <h3> ${misions[t].objective} </h3>  
+          <h3> ${misions[t].launchDate} </h3> 
+        </div>`;  
+
+          
+          
+    }
+
   
-for(var t =0;t < misions.length;t++ ){
-if(misions[t].status==1){
-document.getElementById("misions_div").innerHTML += `
-  <div class="mission_card">
-    <div class="choix_et_menu_div">
-      <ul class="menu_choix" id="menu_choixx">
-        <li><div><h1>star</h1> <img src="images/edit.png" alt=""></div></li>
-        <li><div><h1>edit</h1> <img src="images/edit.png" alt=""></div></li>
-        <li><div><h1>delete</h1> <img src="images/edit.png" alt=""></div></li>
-      </ul>
-     <button class="btns" onclick="edit(${t})"></button> 
-     <button class="btn_suprimer" onclick="suprimer(${t})"></button> 
-     <button class="btn_favorit" onclick="favorit(${t})"></button>
-    </div>
-    <img class="misions_img" src="${misions[t].image}" alt="">
-    <h3>${misions[t].name}</h3>
-    <h3>${misions[t].agency}</h3>
-    <h3>${misions[t].objective}</h3>
-    <h3>${misions[t].launchDate}</h3>
-  </div>
-`;
-}
-}
+  }  
+
 }
 
 
@@ -87,28 +109,22 @@ a.style.display = "none"
 return;
 }
 
-  a.innerHTML=`
-  
-                <input type="text" id="input_name" value="${misions[index].name}">
-                <input type="text" id="input_agence" value="${misions[index].agency}">
-                <input type="text" id="input_discription" value="${misions[index].objective}">
-                <input type="text" id="input_date" value="${misions[index].launchDate}">
-                <button id="submit" onclick="save(${index})">submit</button>
-
-
-`
-
- a.style.display = "flex" 
+aficher(index)
 
 
 }
 function suprimer(index){
+
 misions[index].status=0;
 document.getElementById("misions_div").innerHTML=""
 aficher();
 }
 function save(index){
+  document.getElementById("popupp").style.display = "none";
 misions[index].name = document.getElementById("input_name").value
+misions[index].agency = document.getElementById("input_agence").value
+misions[index].objective = document.getElementById("input_discription").value
+misions[index].launchDate = document.getElementById("input_date").value
 document.getElementById("misions_div").innerHTML=""
 aficher();
 }
