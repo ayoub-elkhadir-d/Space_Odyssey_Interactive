@@ -386,7 +386,7 @@ h6 {
   font-size: 300%;
 }
 .imageofday_titre_et_p p {
-  
+
   font-size: 150%;
 
 }
@@ -608,7 +608,7 @@ maisionscontainer {
   max-height: fit-content;
 }
 .planet_card button:hover {
-  border: 2px solid #000;
+  border: 2px solid #732e2e;
 }
 /*--------------------misions---------------------*/
 .misions_div {
@@ -663,7 +663,7 @@ maisionscontainer {
   align-items: center;
   gap: 10px;
   width: 100%;
-  justify-content: flex-end;
+  justify-content: center;
 }
 .choix_et_menu_div .menu_icone {
   justify-self: end;
@@ -699,6 +699,34 @@ maisionscontainer {
   right: 10%;
   width: fit-content;
   
+}
+.btns{
+  background-color: #ffffff;
+ background-image: url("images/edit.png");
+ background-repeat: no-repeat;
+ background-position: center;
+ width: 24px;
+ 
+}
+.btn_suprimer{
+    background-color: #ffffff;
+ background-image: url("images/delete.png");
+ background-repeat: no-repeat;
+ background-position: center;
+ width: 24px;
+}
+.btn_favorit{
+    background-color: #ffffff;
+ background-image: url("images/favorite_28dp_000000_FILL0_wght400_GRAD0_opsz24.png");
+ background-repeat: no-repeat;
+ background-position: center;
+ width: 24px;
+}
+.btn_suprimer:hover{
+  background-color: #a21313;
+}
+.btns:hover{
+  background-color: #19802d;
 }
 /*------------about_us-------------*/
 
@@ -872,9 +900,7 @@ button {
   cursor: pointer;
   align-self: flex-start;
 }
-button:hover {
-  background: #333;
-}
+
 .contact_options_div {
   display: flex;
   width: 80%;

@@ -1,6 +1,7 @@
 let misions = [
   {
     "id": 1,
+    "status": 1,
     "name": "Apollo 11",
     "agency": "NASA",
     "objective": "Premier alunissage habité",
@@ -9,6 +10,7 @@ let misions = [
   },
   {
     "id": 2,
+    "status": 1,
     "name": "Voyager 1",
     "agency": "NASA",
     "objective": "Exploration du système solaire externe",
@@ -17,6 +19,7 @@ let misions = [
   },
   {
     "id": 3,
+    "status": 1,
     "name": "Rosetta",
     "agency": "ESA",
     "objective": "Étude de la comète 67P/Churyumov-Gerasimenko",
@@ -25,6 +28,7 @@ let misions = [
   },
   {
     "id": 4,
+    "status": 1,
     "name": "Curiosity",
     "agency": "NASA",
     "objective": "Exploration du cratère Gale sur Mars",
@@ -33,6 +37,7 @@ let misions = [
   },
   {
     "id": 5,
+    "status": 1,
     "name": "Artemis I",
     "agency": "NASA",
     "objective": "Test du système de lancement SLS et d’Orion",
@@ -40,19 +45,25 @@ let misions = [
     "image": "images/artemis.png"
   }
 ]
-for(var t =0;t <= misions.length;t++ ){
+
+aficher();
+function aficher(){
+for(var t =0;t < misions.length;t++ ){
+if(misions[t].status==1){
 document.getElementById("misions_div").innerHTML += `
   <div class="mission_card">
     <div class="choix_et_menu_div">
-      <ul class="menu_choix">
+      <ul class="menu_choix" id="menu_choixx">
         <li><div><h1>star</h1> <img src="images/edit.png" alt=""></div></li>
         <li><div><h1>edit</h1> <img src="images/edit.png" alt=""></div></li>
         <li><div><h1>delete</h1> <img src="images/edit.png" alt=""></div></li>
       </ul>
-      <img class="menu_icone" src="images/menu.png" alt="">
+     <button class="btns" onclick="edit(${t})"></button> 
+     <button class="btn_suprimer" onclick="suprimer(${t})"></button> 
+     <button class="btn_favorit" onclick="favorit(${t})"></button>
     </div>
     <img class="misions_img" src="${misions[t].image}" alt="">
-    <h3> ${misions[t].name}</h3>
+    <h3>${misions[t].name}</h3>
     <h3>${misions[t].agency}</h3>
     <h3>${misions[t].objective}</h3>
     <h3>${misions[t].launchDate}</h3>
@@ -60,3 +71,16 @@ document.getElementById("misions_div").innerHTML += `
 `;
 }
 
+}
+}
+function edit(index){
+
+
+
+}
+
+function suprimer(index){
+misions[index].status=0;
+document.getElementById("misions_div").innerHTML=""
+aficher();
+}
