@@ -651,6 +651,7 @@ maisionscontainer {
   overflow: hidden;
   justify-content: center;
   align-items: center;
+ 
 }
 .misions_img {
   width: 100%;
@@ -725,6 +726,39 @@ maisionscontainer {
  object-fit: cover;
  width: 24px;
 }
+
+.container_fv{
+  position:absolute;
+  top: 100px;
+  right: 10px;
+  width: fit-content;
+  height:fit-content;
+  z-index: 11;
+  background-color: #565656;
+  padding: 10px;
+  border-radius: 10px;
+  overflow: scroll;
+  cursor: pointer;
+  display: none;
+ 
+  
+}
+.mission_card_edit{
+   box-shadow: 1px 1px  10px 5px rgb(0, 255, 13);
+   border-radius: 10px;
+     display: flex;
+  flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+     gap: 10px;
+}
+.mission_card_edit input{
+padding: 10px;
+cursor: text;
+border: 0.5px solid black;
+}
+
+
 .btn_suprimer:hover{
   background-color: #a21313;
 }

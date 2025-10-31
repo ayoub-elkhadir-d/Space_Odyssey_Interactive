@@ -49,7 +49,7 @@ let misions = [
     image: "images/artemis.png",
   },
 ];
-
+var container2 =document.getElementById("container_fv")
 aficher();
 function aficher(index) {
   let container = document.getElementById("misions_div");
@@ -57,10 +57,9 @@ function aficher(index) {
 
   for (var t = 0; t < misions.length; t++) {
     if (misions[t].status == 1) {
-      if (t == index ) {
-            
-                   container.innerHTML += `
-                      <div class="mission_card">  
+      if (t == index) {
+        container.innerHTML += `
+                      <div class="mission_card mission_card_edit ">  
                         <div class="choix_et_menu_div">  
                           
                           <button class="btn_suprimer" onclick="suprimer(${t})"></button>   
@@ -71,16 +70,12 @@ function aficher(index) {
                         <input type="text" id="input_agence" value="${misions[index].agency}">
                         <input type="text" id="input_discription" value="${misions[index].objective}">
                         <input type="text" id="input_date" value="${misions[index].launchDate}">
-                        <button id="submit" onclick="save(${index})">submit</button>
+                        <button id="submit" onclick="save(${index})" style="align-self: center;">save</button>
                       </div>`;
-                       
-           
-
-        
-      } 
-      if (t != index ){
-        if(misions[t].in_favorite == 0){
-              container.innerHTML += `  
+      }
+      if (t != index) {
+        if (misions[t].in_favorite == 0) {
+          container.innerHTML += `  
               <div class="mission_card">  
                 <div class="choix_et_menu_div">  
                   <button class="btns" onclick="edit(${t})"></button>   
@@ -93,10 +88,10 @@ function aficher(index) {
                 <h3> ${misions[t].objective} </h3>  
                 <h3> ${misions[t].launchDate} </h3> 
               </div>`;
-      }
+        }
 
-       if(misions[t].in_favorite == 1){
-              container.innerHTML += `  
+        if (misions[t].in_favorite == 1) {
+          container.innerHTML += `  
               <div class="mission_card">  
                 <div class="choix_et_menu_div">  
                   <button class="btns" onclick="edit(${t})"></button>   
@@ -109,18 +104,21 @@ function aficher(index) {
                 <h3> ${misions[t].objective} </h3>  
                 <h3> ${misions[t].launchDate} </h3> 
               </div>`;
+        }
       }
     }
   }
 }
-}
 function edit(index) {
   aficher(index);
+   container2.innerHTML = "";
 }
 
 function suprimer(index) {
+
   misions[index].status = 0;
   document.getElementById("misions_div").innerHTML = "";
+  afficher_favorits ()
   aficher();
 }
 
@@ -129,13 +127,11 @@ function favorit(d) {
     misions[d].in_favorite = 1;
     document.getElementById("misions_div").innerHTML = "";
     aficher();
-
   } else {
     misions[d].in_favorite = 0;
 
     document.getElementById("misions_div").innerHTML = "";
     aficher();
-    
   }
 }
 function save(index) {
@@ -147,3 +143,35 @@ function save(index) {
   document.getElementById("misions_div").innerHTML = "";
   aficher();
 }
+
+//
+function afficher_favorits (){
+  
+  container2.innerHTML = "";
+  if(container2.style.display=="flex"){
+    container2.style.display="none"
+  }
+  else{
+        container2.style.display="flex"
+        for(var b =0;b< misions.length;b++){
+              
+            if(misions[b].in_favorite==1 && misions[b].status != 0){
+              container2.innerHTML += `  
+                      <div class="mission_card" style="width:200px;">  
+                        <div class="choix_et_menu_div" >  
+                          <button class="btns" onclick="edit(${b})"></button>   
+                          <button class="btn_suprimer" onclick="suprimer(${b})"></button>   
+                          <button class="btn_favorit" id="btn_${b}" style="background-image: url('images/in_favorite.png');width: 24px;" onclick="favorit(${b})"></button>  
+                        </div>  
+                        <img class="misions_img" src="${misions[b].image}" alt="">  
+                        <h3>${misions[b].name}</h3>  
+                        <h3> ${misions[b].agency}</h3>  
+                        <h3> ${misions[b].objective} </h3>  
+                        <h3> ${misions[b].launchDate} </h3> 
+                      </div>`;
+            }
+        }
+  }
+
+}
+ var a =document.getElementById("fav_logo").addEventListener("click", afficher_favorits);
