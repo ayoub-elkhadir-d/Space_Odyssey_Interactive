@@ -737,7 +737,7 @@ maisionscontainer {
   background-color: #565656;
   padding: 10px;
   border-radius: 10px;
-  overflow: scroll;
+ 
   cursor: pointer;
   display: none;
  
@@ -758,6 +758,29 @@ cursor: text;
 border: 0.5px solid black;
 }
 
+.filter{
+
+background-color: #007bff;
+border-radius: 10px;
+
+}
+.select_1{
+  color: #19802d;
+}
+.filter_container{
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  background-color: #565656;
+  z-index: 12;
+  gap: 10px;
+  top: 60px;
+  padding: 20px;
+  right:  50px;
+  border-radius: 10px;
+}
 
 .btn_suprimer:hover{
   background-color: #a21313;
