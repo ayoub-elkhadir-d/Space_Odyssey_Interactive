@@ -53,10 +53,10 @@ let misions = [
 var container2 = document.getElementById("container_fv");
 aficher();
 /*********************************aficher******************************************/
-function aficher_sur_container_top(index) {
- container2.style.display = "flex";
-          container2.innerHTML += `  
-                    <div class="mission_card" style="width:200px;">  
+function aficher_sur_container_top(index, creat_card, conten) {
+  /*--------------pour aficher -----------*/
+  if (creat_card == false) {
+    var content = ` <div class="mission_card" style="width:200px;">  
                       <div class="choix_et_menu_div" >  
                         <button class="btns" onclick="edit(${index})"></button>   
                         <button class="btn_suprimer" onclick="suprimer(${index})"></button>   
@@ -68,15 +68,23 @@ function aficher_sur_container_top(index) {
                       <h3> ${misions[index].objective} </h3>  
                       <h3> ${misions[index].launchDate} </h3> 
                     </div>`;
-}
 
+    container2.style.display = "flex";
+    container2.innerHTML += content;
+
+    /*--------------pour creat card -----------*/
+  }
+  if (creat_card == true) {
+    container2.style.display = "flex";
+    container2.innerHTML += conten;
+  }
+}
 
 function aficher(index) {
   let container = document.getElementById("misions_div");
   container.innerHTML = "";
   for (var t = 0; t < misions.length; t++) {
     if (misions[t].status == 1) {
-      
       if (t == index) {
         container.innerHTML += `
                       <div class="mission_card mission_card_edit ">  
@@ -92,7 +100,7 @@ function aficher(index) {
                         <button id="submit" onclick="save(${index})" style="align-self: center;">save</button>
                       </div>`;
       }
-      
+
       if (t != index) {
         if (misions[t].in_favorite == 0) {
           container.innerHTML += `  
@@ -134,6 +142,25 @@ function edit(index) {
   aficher(index);
   container2.innerHTML = "";
 }
+/************************************add***************************************/
+var content_add_card = `<div class="mission_card mission_card_edit ">   
+                        <h1>add Misions</h1>
+                        <input type="text" id="input_name"  placeholder="Enter name">
+                        <input type="text" id="input_agence" placeholder="Enter agence">
+                        <input type="text" id="input_discription" placeholder="Enter description">
+                        <input type="text" id="input_date" value="" placeholder="Enter Date">
+                        <button id="submit" style="align-self: center;">save</button>
+                      </div>`;
+
+document.getElementById("button_add").addEventListener("click", function () {
+  container2.innerHTML = "";
+  if (container2.style.display == "flex") {
+    container2.style.display = "none";
+  } else {
+    container2.style.display = "flex";
+    aficher_sur_container_top(0, true, content_add_card);
+  }
+});
 /************************************suprimer***************************************/
 function suprimer(index) {
   misions[index].status = 0;
@@ -174,12 +201,14 @@ function afficher_favorits() {
     container2.style.display = "flex";
     for (var b = 0; b < misions.length; b++) {
       if (misions[b].in_favorite == 1 && misions[b].status != 0) {
-        aficher_sur_container_top(b)
+        aficher_sur_container_top(b, false);
       }
     }
   }
 }
-var a = document.getElementById("fav_logo").addEventListener("click", afficher_favorits);
+var a = document
+  .getElementById("fav_logo")
+  .addEventListener("click", afficher_favorits);
 
 /***********************************search****************************************/
 var search = document.getElementById("search");
@@ -189,17 +218,16 @@ search.addEventListener("keyup", (event) => {
   for (var z = 0; z < misions.length; z++) {
     var name_to_lower = misions[z].name.toLowerCase();
     if (name_to_lower.startsWith(search.value) && misions[z].status != 0) {
-      aficher_sur_container_top(z)
+      aficher_sur_container_top(z, false);
     }
   }
 });
-/****************************************filter***********************************/
+/***********************************filter***********************************/
 var container4 = document.getElementById("filter_container");
 var button_filter = document.getElementById("filter");
 var select1 = document.getElementById("select_1");
 var select2 = document.getElementById("select_2");
 var select3 = document.getElementById("select_3");
-
 
 function filter_fun() {
   if (container4.style.display == "flex") {
@@ -218,8 +246,8 @@ function filter_fun() {
       container2.innerHTML = "";
       container4.style.display = "none";
       for (var ae = 0; ae < misions.length; ae++) {
-     if (misions[ae].name == select1.value && misions[ae].status != 0) {
-        aficher_sur_container_top(ae)
+        if (misions[ae].name == select1.value && misions[ae].status != 0) {
+          aficher_sur_container_top(ae, false);
         }
       }
     });
@@ -229,7 +257,7 @@ function filter_fun() {
       container4.style.display = "none";
       for (var ar = 0; ar < misions.length; ar++) {
         if (misions[ar].agency == select2.value && misions[ar].status != 0) {
-              aficher_sur_container_top(ar)
+          aficher_sur_container_top(ar, false);
         }
       }
     });
@@ -238,8 +266,11 @@ function filter_fun() {
       container2.innerHTML = "";
       container4.style.display = "none";
       for (var ay = 0; ay < misions.length; ay++) {
-        if (misions[ay].launchDate == select3.value &&misions[ay].status != 0 ) {
-              aficher_sur_container_top(ay)
+        if (
+          misions[ay].launchDate == select3.value &&
+          misions[ay].status != 0
+        ) {
+          aficher_sur_container_top(ay, false);
         }
       }
     });
@@ -248,8 +279,10 @@ function filter_fun() {
 
 button_filter.addEventListener("click", filter_fun);
 
-/****************************************close all windows if click in body***********************************/
+/****************************************close all windows if click in body**********************************
 document.getElementById("main").addEventListener("click",function(){
 container2.style.display = "none";
 container4.style.display = "none";
 })
+
+*/
