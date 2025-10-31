@@ -175,3 +175,31 @@ function afficher_favorits (){
 
 }
  var a =document.getElementById("fav_logo").addEventListener("click", afficher_favorits);
+
+
+ var search =document.getElementById("search")
+ var text_typing ="" ;
+ search.addEventListener('keyup', (event) => {
+                
+                container2.innerHTML = "";
+                        for(var z =0;z<misions.length;z++){
+                          var name_to_lower=misions[z].name.toLowerCase();
+                            if(name_to_lower.startsWith(search.value)&& misions[z].status != 0){
+                              container2.style.display="flex"
+                                container2.innerHTML += `  
+                                  <div class="mission_card" style="width:200px;">  
+                                    <div class="choix_et_menu_div" >  
+                                      <button class="btns" onclick="edit(${z})"></button>   
+                                      <button class="btn_suprimer" onclick="suprimer(${z})"></button>   
+                                      <button class="btn_favorit" id="btn_${z}" style="background-image: url('images/in_favorite.png');width: 24px;" onclick="favorit(${z})"></button>  
+                                    </div>  
+                                    <img class="misions_img" src="${misions[z].image}" alt="">  
+                                    <h3>${misions[z].name}</h3>  
+                                    <h3> ${misions[z].agency}</h3>  
+                                    <h3> ${misions[z].objective} </h3>  
+                                    <h3> ${misions[z].launchDate} </h3> 
+                                  </div>`;
+            }
+
+            }
+        });
