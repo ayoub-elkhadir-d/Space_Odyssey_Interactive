@@ -643,6 +643,8 @@ margin: 0px;
   box-shadow: 2px 2px  15px 2px #215712 ;
   background-color: #2cbd00;
   cursor: pointer;
+  text-align: center;
+  font-weight: 800;
 }
 .container_label_button {
   width: 100%;
@@ -751,8 +753,7 @@ margin: 0px;
 }
 .button_add {
   background-color: #2cbd00;
-  bottom: 10%;
-  right: 10%;
+  
   width: fit-content;
   
 }
@@ -801,7 +802,6 @@ main{
   height:fit-content;
   z-index: 11;
   background-color: #565656;
-  padding: 10px;
   border-radius: 10px;
   cursor: pointer;
   display: none;
