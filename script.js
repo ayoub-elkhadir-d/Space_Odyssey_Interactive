@@ -51,12 +51,24 @@ let misions = [
 ];
 /************************************main***************************************/
 var container2 = document.getElementById("container_fv");
+let container = document.getElementById("misions_div");
+let label = document.getElementById("labell");
+let container_all = document.getElementById("container_");
+let button_cancel_ = document.getElementById("button_cancel");
 aficher();
+/***************************************************************************/
+button_cancel_.addEventListener("click",function(){
+container.innerHTML = "";
+aficher()
+
+})
 /*********************************aficher******************************************/
 function aficher_sur_container_top(index, creat_card, conten) {
   /*--------------pour aficher -----------*/
   if (creat_card == false) {
-    var content = ` <div class="mission_card" style="width:200px;">  
+    var content = `
+               
+                  <div class="mission_card" style="width:200px;">
                       <div class="choix_et_menu_div" >  
                         <button class="btns" onclick="edit(${index})"></button>   
                         <button class="btn_suprimer" onclick="suprimer(${index})"></button>   
@@ -67,10 +79,12 @@ function aficher_sur_container_top(index, creat_card, conten) {
                       <h3> ${misions[index].agency}</h3>  
                       <h3> ${misions[index].objective} </h3>  
                       <h3> ${misions[index].launchDate} </h3> 
-                    </div>`;
+                    </div>
+                  
+                    `;
 
-    container2.style.display = "flex";
-    container2.innerHTML += content;
+    container.style.display = "flex";
+    container.innerHTML += content;
 
     /*--------------pour creat card -----------*/
   }
@@ -81,7 +95,8 @@ function aficher_sur_container_top(index, creat_card, conten) {
 }
 
 function aficher(index) {
-  let container = document.getElementById("misions_div");
+  button_cancel_.style.visibility="hidden"
+  label.innerHTML="Missions"
   container.innerHTML = "";
   for (var t = 0; t < misions.length; t++) {
     if (misions[t].status == 1) {
@@ -143,33 +158,66 @@ function edit(index) {
   container2.innerHTML = "";
 }
 /************************************add***************************************/
-var content_add_card = `<div class="mission_card mission_card_edit ">   
+
+
+function submit_mission(){
+
+var legnth_m = misions.length+1
+console.log(misions.length)
+
+
+   var new_mission= {
+    id: legnth_m,
+    status: 1,
+    in_favorite: 0,
+    name: document.getElementById("input_name").value,
+    agency: document.getElementById("input_agence").value,
+    objective: document.getElementById("input_discription").value,
+    launchDate: document.getElementById("input_date").value,
+    image: "images/rosetta.png",
+  };
+ 
+   container2.style.display = "none";
+   document.getElementById("misions_div").innerHTML = "";
+     misions.push(new_mission)
+  aficher();
+  
+}
+
+
+var content_add_card =
+                   `<div class="mission_card mission_card_edit add">   
                         <h1>add Misions</h1>
                         <input type="text" id="input_name"  placeholder="Enter name">
                         <input type="text" id="input_agence" placeholder="Enter agence">
                         <input type="text" id="input_discription" placeholder="Enter description">
-                        <input type="text" id="input_date" value="" placeholder="Enter Date">
-                        <button id="submit" style="align-self: center;">save</button>
+                        <input type="date" id="input_date" value="" placeholder="Enter Date">
+                        <button id="submit" onclick="submit_mission()" style="align-self: center;">save</button>
                       </div>`;
 
 document.getElementById("button_add").addEventListener("click", function () {
   container2.innerHTML = "";
+ 
   if (container2.style.display == "flex") {
     container2.style.display = "none";
   } else {
     container2.style.display = "flex";
     aficher_sur_container_top(0, true, content_add_card);
+     document.getElementById("input_name").focus()
+   
+ 
   }
 });
 /************************************suprimer***************************************/
 function suprimer(index) {
   misions[index].status = 0;
   document.getElementById("misions_div").innerHTML = "";
-  afficher_favorits();
+
   aficher();
 }
 /***********************************favorit****************************************/
 function favorit(d) {
+
   if (misions[d].in_favorite == 0) {
     misions[d].in_favorite = 1;
     document.getElementById("misions_div").innerHTML = "";
@@ -194,17 +242,15 @@ function save(index) {
 
 /********************************afficher_favorits*******************************************/
 function afficher_favorits() {
-  container2.innerHTML = "";
-  if (container2.style.display == "flex") {
-    container2.style.display = "none";
-  } else {
-    container2.style.display = "flex";
+   button_cancel_.style.visibility="visible"
+  container.innerHTML = "";
+  label.innerHTML = "Favorits"
     for (var b = 0; b < misions.length; b++) {
       if (misions[b].in_favorite == 1 && misions[b].status != 0) {
-        aficher_sur_container_top(b, false);
+         aficher_sur_container_top(b, false);
       }
     }
-  }
+  
 }
 var a = document
   .getElementById("fav_logo")
@@ -214,7 +260,9 @@ var a = document
 var search = document.getElementById("search");
 var text_typing = "";
 search.addEventListener("keyup", (event) => {
-  container2.innerHTML = "";
+  container.innerHTML = "";
+   button_cancel_.style.visibility="visible"
+  label.innerHTML = "Result Search"
   for (var z = 0; z < misions.length; z++) {
     var name_to_lower = misions[z].name.toLowerCase();
     if (name_to_lower.startsWith(search.value) && misions[z].status != 0) {
