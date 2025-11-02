@@ -55,11 +55,11 @@ let container = document.getElementById("misions_div");
 let label = document.getElementById("labell");
 let container_all = document.getElementById("container_");
 let button_cancel_ = document.getElementById("button_cancel");
+                                             
 
 aficher();
 /***************************************************************************/
 button_cancel_.addEventListener("click", function () {
-
   container.innerHTML = "";
   aficher();
 });
@@ -101,8 +101,8 @@ function aficher(index) {
   container.innerHTML = "";
   for (var t = 0; t < misions.length; t++) {
     if (misions[t].status == 1) {
-     if (t == index) {
-  container.innerHTML += `
+      if (t == index) {
+        container.innerHTML += `
     <div class="mission_card mission_card_edit " id ="card">  
         <div class="container_label_button">
           <h1 id="labell" class="label_">Add Misions</h1>
@@ -119,9 +119,7 @@ function aficher(index) {
       <input type="text" id="input_date" value="${misions[index].launchDate}">
       <button id="submit" onclick="save(${index})" style="align-self: center;">save</button>
     </div>`;
-
- 
-}
+      }
 
       if (t != index) {
         if (misions[t].in_favorite == 0) {
@@ -165,14 +163,12 @@ function edit(index) {
   aficher(index);
   container2.innerHTML = "";
 
-  // 
+  //
   const cancelEditBtn = document.getElementById("button_cancel_edit");
- 
-    cancelEditBtn.addEventListener("click", function () {
-      console.log("cancel edit clicked");
-      aficher(); // 
-    });
-  
+
+  cancelEditBtn.addEventListener("click", function () {
+    aficher(); //
+  });
 }
 
 /************************************add***************************************/
@@ -191,37 +187,37 @@ var content_add_card = `
                       </div>`;
 
 function submit_mission() {
-  var card__= document.getElementById("add_card")
+  var card__ = document.getElementById("add_card");
   var input_name_ = document.getElementById("input_name");
   var input_agence__ = document.getElementById("input_agence");
   var input_discription_ = document.getElementById("input_discription");
   var input_date_ = document.getElementById("input_date");
+
   var legnth_m = misions.length + 1;
   if (
     input_name_.value != "" &&
     input_agence__.value != "" &&
     input_discription_.value != "" &&
-    input_date_.value != "") {
-      var new_mission = {
-          id: legnth_m,
-          status: 1,
-          in_favorite: 0,
-          name: input_name_.value,
-          agency: input_agence__.value,
-          objective: input_discription_.value,
-          launchDate: input_date_.value,
-          image: "images/rosetta.png",
-        };
+    input_date_.value != ""
+  ) {
+    var new_mission = {
+      id: legnth_m,
+      status: 1,
+      in_favorite: 0,
+      name: input_name_.value,
+      agency: input_agence__.value,
+      objective: input_discription_.value,
+      launchDate: input_date_.value,
+      image: "images/rosetta.png",
+    };
 
-  container2.style.display = "none";
-  document.getElementById("misions_div").innerHTML = "";
-  misions.push(new_mission);
-  aficher();
+    container2.style.display = "none";
+    document.getElementById("misions_div").innerHTML = "";
+    misions.push(new_mission);
+    aficher();
   } else {
-   card__.style.boxShadow="1px 1px  10px 5px rgb(201, 0, 0)"
+    card__.style.boxShadow = "1px 1px  10px 5px rgb(201, 0, 0)";
   }
-
-  
 }
 
 document.getElementById("button_add").addEventListener("click", function () {
@@ -234,24 +230,23 @@ document.getElementById("button_add").addEventListener("click", function () {
     aficher_sur_container_top(0, true, content_add_card);
     document.getElementById("input_name").focus();
 
-    document.getElementById("button_cancel_add").addEventListener("click", function () {
-  document.getElementById("add_card").style.display = "none";
-});
-
+    document
+      .getElementById("button_cancel_add")
+      .addEventListener("click", function () {
+        document.getElementById("add_card").style.display = "none";
+      });
   }
-
 });
-
 
 /************************************suprimer***************************************/
 function suprimer(index) {
   misions[index].status = 0;
   document.getElementById("misions_div").innerHTML = "";
-
   aficher();
 }
 /***********************************favorit****************************************/
 function favorit(d) {
+
   if (misions[d].in_favorite == 0) {
     misions[d].in_favorite = 1;
     document.getElementById("misions_div").innerHTML = "";
@@ -265,7 +260,8 @@ function favorit(d) {
 }
 /***********************************save****************************************/
 function save(index) {
-  var card_ = document.getElementById("card")
+
+  var card_ = document.getElementById("card");
   var input_name_ = document.getElementById("input_name");
   var input_agence__ = document.getElementById("input_agence");
   var input_discription_ = document.getElementById("input_discription");
@@ -274,24 +270,22 @@ function save(index) {
     input_name_.value != "" &&
     input_agence__.value != "" &&
     input_discription_.value != "" &&
-    input_date_.value != "") {
-
+    input_date_.value != ""
+  ) {
     misions[index].name = input_name_.value;
     misions[index].agency = input_agence__.value;
     misions[index].objective = input_discription_.value;
     misions[index].launchDate = input_date_.value;
-    
+
     document.getElementById("misions_div").innerHTML = "";
     aficher();
     document.getElementById("popupp").style.display = "none";
   } else {
-   card_.style.boxShadow="1px 1px  10px 5px rgb(201, 0, 0)"
+    card_.style.boxShadow = "1px 1px  10px 5px rgb(201, 0, 0)";
   }
-  
 }
 
-
-/********************************afficher_favorits*******************************************/
+/******************************** afficher_favorits*******************************************/
 function afficher_favorits() {
   button_cancel_.style.visibility = "visible";
   container.innerHTML = "";
@@ -308,7 +302,7 @@ var a = document
 
 /***********************************search****************************************/
 var search = document.getElementById("search");
-var text_typing = "";
+
 search.addEventListener("keyup", (event) => {
   container.innerHTML = "";
   button_cancel_.style.visibility = "visible";
@@ -319,6 +313,7 @@ search.addEventListener("keyup", (event) => {
 
     if (name_to_lower.includes(search.value) && misions[z].status != 0) {
       aficher_sur_container_top(z, false);
+
     }
   }
 });
@@ -342,6 +337,11 @@ function filter_fun() {
       select2.innerHTML += `<option value="${misions[aa].agency}">${misions[aa].agency}</option>`;
       select3.innerHTML += `<option value="${misions[aa].launchDate}">${misions[aa].launchDate}</option>`;
     }
+
+    const cancelEditBtn = document.getElementById("button_cancel_filtr");
+    cancelEditBtn.addEventListener("click", function () {
+      container4.style.display = "none";
+    });
 
     select1.addEventListener("change", function () {
       container.innerHTML = "";
@@ -385,11 +385,11 @@ function filter_fun() {
 }
 
 button_filter.addEventListener("click", filter_fun);
+/*********************************************************************************/
 
-/****************************************close all windows if click in body**********************************
-document.getElementById("main").addEventListener("click",function(){
-container2.style.display = "none";
-container4.style.display = "none";
-})
+/*********************************************************************************/
 
-*/
+
+
+
+
