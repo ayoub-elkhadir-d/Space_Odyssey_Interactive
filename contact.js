@@ -5,20 +5,20 @@ const input_number  = document.getElementById("number");
 const buton_submit  = document.getElementById("btn_submit");
 const inputs_card  = document.getElementById("right-panel");
 const regex_mail   = /^[A-Za-z0-9._-]+@[A-Za-z0-9-]+\.[A-Za-z]{2,4}$/;
-const regex_number = /^[0-9 +\-]{5,15}$/; // 
+const regex_number = /^[0-9 +\-]{5,15}$/;  
 function setValidStyle(input, isValid) {
   input.style.boxShadow = isValid
-    ? "1px 1px 10px 5px rgba(0, 255, 17, 1)"   // 
+    ? "1px 1px 10px 5px rgba(0, 255, 17, 1)"   
     : "1px 1px 10px 5px rgba(255, 0, 0, 1)";
 }
 
-// 
+
 input_fr_name.addEventListener("keyup", function() {
-  setValidStyle(input_fr_name, input_fr_name.value.trim() !== "");
+  setValidStyle(input_fr_name, input_fr_name.value.trim() != "");
 });
 
 input_ls_name.addEventListener("keyup", function() {
-  setValidStyle(input_ls_name, input_ls_name.value.trim() !== "");
+  setValidStyle(input_ls_name, input_ls_name.value.trim() != "");
 });
 
 input_email.addEventListener("keyup", function() {
