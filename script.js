@@ -2,6 +2,7 @@ let misions = [
   {
     id: 1,
     status: 1,
+    in_favorite: 0,
     name: "Apollo 11",
     agency: "NASA",
     objective: "Premier alunissage habité",
@@ -44,9 +45,59 @@ let misions = [
     in_favorite: 0,
     name: "Artemis I",
     agency: "NASA",
-    objective: "Test du système de lancement SLS et d Orion",
+    objective: "Test du système de lancement SLS et du vaisseau Orion",
     launchDate: "2022-11-16",
     image: "images/artemis.png",
+  },
+  {
+    id: 6,
+    status: 1,
+    in_favorite: 0,
+    name: "James Webb Space Telescope",
+    agency: "NASA / ESA / CSA",
+    objective: "Observation de l’univers lointain en infrarouge",
+    launchDate: "2021-12-25",
+    image: "images/jwst.png",
+  },
+  {
+    id: 7,
+    status: 1,
+    in_favorite: 0,
+    name: "Hayabusa2",
+    agency: "JAXA",
+    objective: "Retour d’échantillons de l’astéroïde Ryugu",
+    launchDate: "2014-12-03",
+    image: "images/hayabusa2.png",
+  },
+  {
+    id: 8,
+    status: 1,
+    in_favorite: 0,
+    name: "ExoMars Trace Gas Orbiter",
+    agency: "ESA / Roscosmos",
+    objective: "Analyse des gaz rares dans l’atmosphère martienne",
+    launchDate: "2016-03-14",
+    image: "images/exomars.png",
+  },
+  {
+    id: 9,
+    status: 1,
+    in_favorite: 0,
+    name: "Luna 2",
+    agency: "USSR",
+    objective: "Premier impact contrôlé sur la Lune",
+    launchDate: "1959-09-12",
+    image: "images/luna2.png",
+  },
+  {
+    id: 10,
+    status: 1,
+    in_favorite: 0,
+    name: "Chang’e 5",
+    agency: "CNSA",
+    objective: "Retour d’échantillons lunaires chinois",
+    launchDate: "2020-11-23",
+    image: "images/change5.png",
   },
 ];
 /************************************main***************************************/
@@ -56,17 +107,19 @@ let label = document.getElementById("labell");
 let container_all = document.getElementById("container_");
 let button_cancel_ = document.getElementById("button_cancel");
 
- aficher_sur_container_top(undefined,"all",undefined)
+ aficher(undefined,"all",undefined)
 /***************************************************************************/
 button_cancel_.addEventListener("click", function () {
   container.innerHTML = "";
-  aficher_sur_container_top(undefined,"all",undefined)
+  aficher(undefined,"all",undefined)
 });
-/*********************************edit_d******************************************/
-function aficher_sur_container_top(index,type_de_afichage,conten) {
-  /*--------------pour edit_d -----------*/
-  
-  if (type_de_afichage=="one") {
+
+function aficher(index,type_de_afichage,conten) { 
+// index: index de elemen si nous avan aficher un mision seul
+//  type_de_afichage :le type de afichage si un mition seul en ecrire "one" si all misions ecrire "all"
+// content: utilise pour creier un card 
+
+  if (type_de_afichage=="one") {  
        var content = `<div class="mission_card" style="width:200px;">
                       <div class="choix_et_menu_div" >  
                         <button class="btns" onclick="edit(${index})"></button>   
@@ -78,14 +131,12 @@ function aficher_sur_container_top(index,type_de_afichage,conten) {
                       <h3> ${misions[index].agency}</h3>  
                       <h3> ${misions[index].objective} </h3>  
                       <h3> ${misions[index].launchDate} </h3> 
-                    </div>
-                  
-  `;
+                    </div> `;
     container.style.display = "flex";
     container.innerHTML += content;
 
   }
-
+    // pour aficher all misions
     if (type_de_afichage=="all") {
     for (var t = 0; t < misions.length; t++) {
      if (misions[t].status == 1) {
@@ -100,15 +151,14 @@ function aficher_sur_container_top(index,type_de_afichage,conten) {
                       <h3> ${misions[t].agency}</h3>  
                       <h3> ${misions[t].objective} </h3>  
                       <h3> ${misions[t].launchDate} </h3> 
-                    </div>
-                  
-  `;
+                    </div> `;
     container.style.display = "flex";
-    container.innerHTML += content2;
-     
+    container.innerHTML += content2; 
     }
   }
     }
+
+    
   if (conten != undefined) {
     container2.style.display = "flex";
     container2.innerHTML += conten;
@@ -143,11 +193,11 @@ function edit_d(index) {
     }
     if (t != index) {
         if (misions[t].in_favorite == 0) {
-          aficher_sur_container_top(t,"one",undefined)
+          aficher(t,"one",undefined)
         }
 
         if (misions[t].in_favorite == 1) {
-          aficher_sur_container_top(t,"one",undefined)
+          aficher(t,"one",undefined)
       }
   }
       
@@ -167,7 +217,7 @@ function edit(index) {
   cancelEditBtn.addEventListener("click", function () {
       container.innerHTML = "";
     container2.style.display="none"   
-    aficher_sur_container_top(undefined,"all",undefined)
+    aficher(undefined,"all",undefined)
   });
 }
 
@@ -213,7 +263,7 @@ function submit_mission() {
     container2.style.display = "none";
     document.getElementById("misions_div").innerHTML = "";
     misions.push(new_mission);
-    aficher_sur_container_top(undefined,"all",undefined)
+    aficher(undefined,"all",undefined)
   } else {
     card__.style.boxShadow = "1px 1px  10px 5px rgb(201, 0, 0)";
   }
@@ -228,7 +278,7 @@ document.getElementById("button_add").addEventListener("click", function () {
   } else {
       console.log("c")
     container2.style.display = "flex";
-    aficher_sur_container_top(undefined, undefined, content_add_card);
+    aficher(undefined, undefined, content_add_card);
       console.log("d")
     document.getElementById("input_name").focus();
   
@@ -244,19 +294,19 @@ document.getElementById("button_add").addEventListener("click", function () {
 function suprimer(index) {
   misions[index].status = 0;
   document.getElementById("misions_div").innerHTML = "";
-  aficher_sur_container_top(undefined,"all",undefined)
+  aficher(undefined,"all",undefined)
 }
 /***********************************favorit****************************************/
 function favorit(d) {
   if (misions[d].in_favorite == 0) {
     misions[d].in_favorite = 1;
     document.getElementById("misions_div").innerHTML = "";
-    aficher_sur_container_top(undefined,"all",undefined)
+    aficher(undefined,"all",undefined)
   } else {
     misions[d].in_favorite = 0;
 
     document.getElementById("misions_div").innerHTML = "";
-    aficher_sur_container_top(undefined,"all",undefined)
+    aficher(undefined,"all",undefined)
   }
 }
 /*********************************** save ****************************************/
@@ -278,7 +328,7 @@ function save(index) {
     misions[index].launchDate = input_date_.value;
 
     document.getElementById("misions_div").innerHTML = "";
-    aficher_sur_container_top(undefined,"all",undefined)
+    aficher(undefined,"all",undefined)
     document.getElementById("popupp").style.display = "none";
   } else {
     card_.style.boxShadow = "1px 1px  10px 5px rgb(201, 0, 0)";
@@ -292,7 +342,7 @@ function afficher_favorits() {
   label.innerHTML = "Favorits";
   for (var b = 0; b < misions.length; b++) {
     if (misions[b].in_favorite == 1 && misions[b].status != 0) {
-      aficher_sur_container_top(b,"one",undefined)
+      aficher(b,"one",undefined)
     }
   }
 }
@@ -312,7 +362,7 @@ search.addEventListener("keyup", (event) => {
     var name_to_lower = misions[z].name.toLowerCase();
 
     if (name_to_lower.includes(search.value) && misions[z].status != 0) {
-      aficher_sur_container_top(z,"one",undefined)
+      aficher(z,"one",undefined)
     }
   }
 });
@@ -344,7 +394,7 @@ function filter_fun() {
         if (misions[ae].name == select1.value && misions[ae].status != 0) {
           button_cancel_.style.visibility = "visible";
           label.innerHTML = "Filtre";
-         aficher_sur_container_top(ae,"one",undefined)
+         aficher(ae,"one",undefined)
         }
       }
     });
@@ -356,7 +406,7 @@ function filter_fun() {
         if (misions[ar].agency == select2.value && misions[ar].status != 0) {
           button_cancel_.style.visibility = "visible";
           label.innerHTML = "Filtre";
-         aficher_sur_container_top(ar,"one",undefined)
+         aficher(ar,"one",undefined)
         }
       }
     });
@@ -371,7 +421,7 @@ function filter_fun() {
         ) {
           button_cancel_.style.visibility = "visible";
           label.innerHTML = "Filtre";
-          aficher_sur_container_top(ay,"one",undefined)
+          aficher(ay,"one",undefined)
         }
       }
     });
