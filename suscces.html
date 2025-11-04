@@ -5,48 +5,250 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Space Mission Card</title>
   <style>
-    * {
-      box-sizing: border-box;
+   #submit,#button_add{
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px  15px 2px #215712 ;
+  background-color: #2cbd00;
+  cursor: pointer;
+}
+.container_label_button {
+  width: 100%;
+  display: flex;
+  align-items: center; /* يحاذي العناصر رأسياً في الوسط */
+  gap: 10px;
+  justify-content: space-around; /* يوزع العناصر أفقياً: النص في الوسط، الزر في النهاية */
+}
+
+.label_ {
+  text-align: center; /* يحاذي النص أفقياً داخل العنصر */
+}
+
+.button_ {
+  
+  background-image: url(images/cancel_28dp_EA3323.png);
+  background-repeat: no-repeat;
+  background-position: center; /* يضمن صورة الزر في الوسط */
+  width: 22px;
+  height: 22px; /* إضافة ارتفاع للزر ليكون مربعاً */
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px #ff0000 ;
+  
+}
+.mission_card {
+      background: #8a909a;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      overflow: hidden;
+      width: 320px;
+      color: #fff;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    
+     
+    }
+/* تحسين حاوية الـ Popup للتمرير الرأسي السلس */
+#popup_fv {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #215712;
+  position: absolute;
+  right: 10px;
+  top: 55px;
+  z-index: 223;
+
+  width: 350px; /* عرض ثابت للـ popup ليتناسب مع البطاقات (اضبط إذا لزم) */
+  min-width: 350px; /* الحد الأدنى للعرض لمنع التقلص */
+  height: 400px; /* ارتفاع ثابت */
+  overflow-y: auto; /* تمرير رأسي فقط (auto يفعله عند الحاجة) */
+  overflow-x: hidden; /* منع التمرير الأفقي وتقلص المحتوى */
+  border-radius: 10px; /* إضافة حواف مستديرة للجمال */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* ظل للتمييز */
+}
+
+/* تخصيص شريط التمرير داخل الـ popup (رفيع وأنيق) */
+#popup_fv::-webkit-scrollbar {
+  width: 6px; /* عرض رفيع للشريط */
+}
+
+#popup_fv::-webkit-scrollbar-track {
+  background: #1a3d0a; /* خلفية داكنة تتناسب مع اللون الأخضر */
+  border-radius: 3px;
+}
+
+#popup_fv::-webkit-scrollbar-thumb {
+  background: #4caf50; /* لون أخضر فاتح */
+  border-radius: 3px;
+}
+
+#popup_fv::-webkit-scrollbar-thumb:hover {
+  background: #66bb6a; /* أغمق عند التحويم */
+}
+
+/* لـ Firefox: شريط تمرير رفيع */
+#popup_fv {
+  scrollbar-width: thin;
+  scrollbar-color: #4caf50 #1a3d0a;
+}
+
+/* منع تقلص البطاقات داخل الـ popup تحديداً */
+#popup_fv .mission_card {
+  background: #8a909a;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  overflow: hidden;
+  width: 100%; /* عرض كامل داخل الـ popup (لكن لا يتجاوز الحد الأقصى) */
+  max-width: 320px; /* الحد الأقصى للحفاظ على الحجم الطبيعي */
+  min-width: 300px; /* الحد الأدنى لمنع التقلص الشديد */
+  flex-shrink: 0; /* منع التقلص التلقائي (shrink) */
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  
+  margin-bottom: 10px; /* مسافة أسفل كل بطاقة للتمرير السلس */
+  height: auto; /* ارتفاع تلقائي (لا تحافظ على ارتفاع ثابت إلا إذا أردت) */
+}
+
+#popup_fv .mission_card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+/* إذا كانت البطاقات تحافظ على ارتفاع ثابت (كما ذكرت)، اجعل الصورة تتكيف */
+#popup_fv .mission_card img {
+  width: 100%;
+  height: 150px; /* ارتفاع أقصر للـ popup لتجنب التجاوز */
+  object-fit: cover; /* الحفاظ على نسبة الصورة دون تشويه */
+}
+
+
+
+    .mission_card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+
+    .mission_card img {
+      width: 50%;
+      height: 70;
+      object-fit: cover;
+    }
+
+    .mission_card-content {
+      padding: 20px;
+    }
+
+    .mission_card h2 {
+    
+      margin: 0 0 10px;
+      font-size: 1.4rem;
+      color: #061a6d;
+    }
+
+    .agency {
+      font-weight: bold;
+      color: #000000;
+     
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .description {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: #000000;
+      margin-bottom: 15px;
+    }
+
+    .date {
+      font-size: 0.85rem;
+      color: #000000;
+      font-weight: 600;
+
+      text-align: right;
+      display: block;
+      margin-bottom: 15px;
+      background-repeat: no-repeat;
+      height: 25px;
+    }
+
+    .buttons-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 15px;
+      height: 25px;
+    }
+
+    .mission_card button {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+     
+      border-radius: 8px;
+      font-size: 0.85rem;
+      cursor: pointer;
+
       font-family: 'Poppins', sans-serif;
     }
 
-  
+    .mission_card button:hover {
+      background: rgba(0, 200, 255, 0.2);
     
-
-    @media (max-width: 480px) {
-      .mission_card {
-        width: 100%;
-      }
-
-      .buttons-container {
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .mission_card button {
-        flex: none;
-      }
     }
+
+    .mission_card button.delete {
+   
+        background-image: url(images/delete.png);
+      background-repeat: no-repeat;
+    }
+
+   
+
+    .mission_card button.edit {
+      
+      background-image: url(images/edit.png);
+      background-repeat: no-repeat;
+    }
+
+  
+
+    .mission_card button.favorites {
+
+        background-image: url(images/favorite_28dp_000000_FILL0_wght400_GRAD0_opsz24.png);
+      background-repeat: no-repeat;
+    }
+.con1{
+  
+  
+}
   </style>
 </head>
 <body>
 
-  <div class="mission_card">
-    <img src="images/apollo11.png" alt="Apollo 11 Mission">
+     allHtml +=`
+      <div class="mission_card">  
     <div class="mission_card-content">
       <div class="buttons-container">
-        <button class="delete">حذف</button>
-        <button class="edit">تعديل</button>
-        <button class="favorites">مفضلة</button>
+        <button class="edit"></button>   
+          <button class="delete" "></button>   
+          <button class="favorites ${isFavorite}" id="btn_${t}"" ${favoriteStyle}></button>  
       </div>
-      <h2>Apollo 11</h2>
-      <span class="agency">NASA</span>
+       <img class="misions_img" src="${missions[t].image}" alt="">  
+      <h2></h2>
+      <h3 class="agency">${missions[t].agency}</h3>
       <p class="description">
-        Premier alunissage habité – أول هبوط بشري على سطح القمر.
+
       </p>
-      <span class="date">16 يوليو 1969</span>
+      <span class="date"></span>
     </div>
   </div>
+      `;
+
+
+  
 
 </body>
 </html>
