@@ -11,11 +11,12 @@ body {
   flex-direction: column;
   position: relative;
   gap: 20px;
+  background-color: #ffffff;
 }
 h1 {
   font-family: sans-serif;
 }
-/*-----------------header-------------------*/
+
 /* Reset */
 * {
   margin: 0;
@@ -158,7 +159,7 @@ h1 {
     padding: 6px 12px;
   }
 }
-/*---------------main-------------------------*/
+
 main {
   display: flex;
   flex-direction: column;
@@ -168,7 +169,6 @@ main {
   gap: 30px;
 }
 
-/*----------------hero----------------------*/
 .earthhomelogo {
   position: relative;
   height: 20%;
@@ -226,10 +226,7 @@ main {
   border-radius: 50px;
 }
 
-/*----------------home------------------------*/
 
-
-/*--------------------misions---------------------*/
 .misions_div {
   position: relative;
   width: 100%;
@@ -287,61 +284,191 @@ margin: 0px;
   box-shadow: 1px 1px 10px #ff0000 ;
   
 }
-.maisionscontainer {
-   gap: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 80%;
-}
-.maisionscontainer p {
-  color: black;
-}
-
-.menu_icone:hover {
-  background-color: #666;
-  border-radius: 10px;
-}
 .mission_card {
-  position: relative;
+      background: #8a909a;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      overflow: hidden;
+      width: 320px;
+      color: #fff;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    
+      padding: 10px;
+    }
+/* تحسين حاوية الـ Popup للتمرير الرأسي السلس */
+#popup_fv {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  background-color: rgb(255, 255, 255);
-  width: 300px;
-  padding: 10px;
-  border-radius: 10px;
-  
-  box-shadow: 5px 5px 15px 5px #a5a5a5 ;
-  overflow: hidden;
-  justify-content: center;
-  align-items: center;
-
- 
-}
-.mission_card ,.herocontener,.fother{
-  opacity: 1;
-}
-
-.misions_img {
-  width: 100%;
-  border-radius: 10px;
-}
-.mission_card h3 {
-  font-size: 1rem;
-}
-.container_ button{
-  background-color: #ffffff;
-  height: 26px;
-}
-.choix_et_menu_div {
-  display: flex;
-  align-items: center;
   gap: 10px;
-  width: 100%;
-
-  justify-content: space-evenly;
+  background-color: #215712;
+  position: absolute;
+  right: 10px;
+  top: 55px;
+  z-index: 223;
+  padding: 10px;
+  width: 350px; /* عرض ثابت للـ popup ليتناسب مع البطاقات (اضبط إذا لزم) */
+  min-width: 350px; /* الحد الأدنى للعرض لمنع التقلص */
+  height: 400px; /* ارتفاع ثابت */
+  overflow-y: auto; /* تمرير رأسي فقط (auto يفعله عند الحاجة) */
+  overflow-x: hidden; /* منع التمرير الأفقي وتقلص المحتوى */
+  border-radius: 10px; /* إضافة حواف مستديرة للجمال */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* ظل للتمييز */
 }
+
+/* تخصيص شريط التمرير داخل الـ popup (رفيع وأنيق) */
+#popup_fv::-webkit-scrollbar {
+  width: 6px; /* عرض رفيع للشريط */
+}
+
+#popup_fv::-webkit-scrollbar-track {
+  background: #1a3d0a; /* خلفية داكنة تتناسب مع اللون الأخضر */
+  border-radius: 3px;
+}
+
+#popup_fv::-webkit-scrollbar-thumb {
+  background: #4caf50; /* لون أخضر فاتح */
+  border-radius: 3px;
+}
+
+#popup_fv::-webkit-scrollbar-thumb:hover {
+  background: #66bb6a; /* أغمق عند التحويم */
+}
+
+/* لـ Firefox: شريط تمرير رفيع */
+#popup_fv {
+  scrollbar-width: thin;
+  scrollbar-color: #4caf50 #1a3d0a;
+}
+
+/* منع تقلص البطاقات داخل الـ popup تحديداً */
+#popup_fv .mission_card {
+  background: #8a909a;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  overflow: hidden;
+  width: 100%; /* عرض كامل داخل الـ popup (لكن لا يتجاوز الحد الأقصى) */
+  max-width: 320px; /* الحد الأقصى للحفاظ على الحجم الطبيعي */
+  min-width: 300px; /* الحد الأدنى لمنع التقلص الشديد */
+  flex-shrink: 0; /* منع التقلص التلقائي (shrink) */
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  margin-bottom: 10px; /* مسافة أسفل كل بطاقة للتمرير السلس */
+  height: auto; /* ارتفاع تلقائي (لا تحافظ على ارتفاع ثابت إلا إذا أردت) */
+}
+
+#popup_fv .mission_card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+/* إذا كانت البطاقات تحافظ على ارتفاع ثابت (كما ذكرت)، اجعل الصورة تتكيف */
+#popup_fv .mission_card img {
+  width: 100%;
+  height: 150px; /* ارتفاع أقصر للـ popup لتجنب التجاوز */
+  object-fit: cover; /* الحفاظ على نسبة الصورة دون تشويه */
+}
+
+
+
+    .mission_card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+
+    .mission_card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .mission_card-content {
+      padding: 20px;
+    }
+
+    .mission_card h2 {
+    
+      margin: 0 0 10px;
+      font-size: 1.4rem;
+      color: #061a6d;
+    }
+
+    .agency {
+      font-weight: bold;
+      color: #000000;
+     
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .description {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: #000000;
+      margin-bottom: 15px;
+    }
+
+    .date {
+      font-size: 0.85rem;
+      color: #000000;
+      font-weight: 600;
+      background-image: url(images/calendar_month_28dp_FFFFFF\ \(1\).png);
+      text-align: right;
+      display: block;
+      margin-bottom: 15px;
+      background-repeat: no-repeat;
+      height: 25px;
+    }
+
+    .buttons-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 15px;
+      height: 25px;
+    }
+
+    .mission_card button {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      cursor: pointer;
+
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .mission_card button:hover {
+      background: rgba(0, 200, 255, 0.2);
+    
+    }
+
+    .mission_card button.delete {
+   
+        background-image: url(images/delete.png);
+      background-repeat: no-repeat;
+    }
+
+   
+
+    .mission_card button.edit {
+      
+      background-image: url(images/edit.png);
+      background-repeat: no-repeat;
+    }
+
+  
+
+    .mission_card button.favorites {
+
+        background-image: url(images/favorite_28dp_000000_FILL0_wght400_GRAD0_opsz24.png);
+      background-repeat: no-repeat;
+    }
+
+  
 
 .menu_choix {
   display: none;
@@ -374,39 +501,7 @@ margin: 0px;
   width: fit-content;
   
 }
-.btns:hover,.btn_suprimer:hover,.btn_favorit:hover{
-   cursor: pointer;
-  border-radius: 10px;
-  box-shadow: 1px 1px 10px #484848 ;
-}
-.btns{
 
- background-image: url("images/edit.png");
- background-repeat: no-repeat;
- background-position: center;
- width: 24px;
- 
- 
-}
-.btn_suprimer{
-    background-color: #ff0000;
- background-image: url("images/delete.png");
- background-repeat: no-repeat;
- background-position: center;
- width: 24px;
- height: 26px;
-  
-}
-
-.btn_favorit{
-    background-color: #ffffff;
- background-image: url("images/favorite_28dp_000000_FILL0_wght400_GRAD0_opsz24.png");
- background-repeat: no-repeat;
- background-position: center;
- object-fit: cover;
- width: 24px;
-
-}
 main{
   opacity:1 ;
 }
@@ -483,7 +578,7 @@ border-radius: 10px;
 }
 
 
-/*------------footer-------------*/
+
 .fother {
   background-color: black;
   width: 100%;
@@ -532,7 +627,7 @@ border-radius: 10px;
 .logofothers {
   width: 20%;
 }
-/*-------------------------------------------------*/
+
 
 @media (max-width: 768px) {
   h1 {

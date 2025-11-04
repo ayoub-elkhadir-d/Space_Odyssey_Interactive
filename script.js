@@ -75,7 +75,7 @@ function displayMissions(index, type, content, container_) {
   if (type === "one") {
     const isFavorite = missions[index].in_favorite === 1 ? "active" : "";
     // تصحيح: استخدم background-image فقط، واعتمد على CSS للـ active
-    const favoriteStyle = missions[index].in_favorite === 1 ? 'style="background-image: url(\'images/in_favorite.png\'); background-size: cover;"' : '';
+    const favoriteStyle = missions[index].in_favorite === 1 ? 'style="background-image: url(\'images/in_favorite.png\');width="26px""' : '';
     /*
    
     */
@@ -93,7 +93,7 @@ function displayMissions(index, type, content, container_) {
       <p class="description">
         ${missions[index].objective}
       </p>
-      <span class="date">${missions[index].launchDate}/span>
+      <span class="date">${missions[index].launchDate}</span>
     </div>
   </div>
       `;
@@ -107,20 +107,25 @@ function displayMissions(index, type, content, container_) {
     for (let t = 0; t < missions.length; t++) {
       if (missions[t].status === 1) {
         const isFavorite = missions[t].in_favorite === 1 ? "active" : "";
-        const favoriteStyle = missions[t].in_favorite === 1 ? 'style="background-image: url(\'images/in_favorite.png\'); background-size: cover;"' : '';
-        allHtml += `
-          <div class="mission_card" style="width:200px;">
-            <div class="choix_et_menu_div">  
-              <button class="btns" onclick="edit(${t})"></button>   
-              <button class="btn_supprimer" onclick="deleteMission(${t})">k</button> 
-              <button class="btn_favorit ${isFavorite}" id="btn_${t}" onclick="toggleFavorite(${t})" ${favoriteStyle}></button>  
-            </div>  
-            <img class="misions_img" src="${missions[t].image}" alt="">  
-            <h3>${missions[t].name}</h3>  
-            <h3>${missions[t].agency}</h3>  
-            <h3>${missions[t].objective}</h3>  
-            <h3>${missions[t].launchDate}</h3> 
-          </div>`;
+        const favoriteStyle = missions[t].in_favorite === 1 ? 'style="background-image: url(\'images/edit.png\'); "' : '';
+        allHtml +=`
+      <div class="mission_card">  
+    <div class="mission_card-content">
+      <div class="buttons-container">
+        <button class="edit" onclick="edit(${t})"></button>   
+          <button class="delete" onclick="deleteMission(${t})"></button>   
+          <button class="favorites ${isFavorite}" id="btn_${t}" onclick="toggleFavorite(${t})" ${favoriteStyle}></button>  
+      </div>
+       <img class="misions_img" src="${missions[t].image}" alt="">  
+      <h2>${missions[t].name}</h2>
+      <h3 class="agency">${missions[t].agency}</h3>
+      <p class="description">
+        ${missions[t].objective}
+      </p>
+      <span class="date">${missions[t].launchDate}</span>
+    </div>
+  </div>
+      `;
       }
     }
     container_.style.display = "flex";
@@ -201,7 +206,7 @@ function setupFilters() {
       if (!selectAgency.innerHTML.includes(agencyOption)) {
         selectAgency.innerHTML += agencyOption;
       }
-      const dateOption =`<option value="${missions[aa].launchDate}">${missions[aa].launchDate}</option>` ;
+      const dateOption =`<option value="${missions[aa].launchDate}">${missions[aa].launchDate}</option> `;
       if (!selectDate.innerHTML.includes(dateOption)) {
         selectDate.innerHTML += dateOption;
       }
@@ -493,16 +498,33 @@ function save(index) {
 // CSS إضافي للزر (يضاف ديناميكيًا لدعم active مع background-image)
 const style = document.createElement('style');
 style.textContent = `
-  .btn_favorit {
+  .favorites {
     background-color: transparent; /* افتراضي شفاف */
     background-repeat: no-repeat;
-    transition: background-image 0.3s ease; /* انتقال سلس */
+    background-position: center;
+    background-size: contain;
+    transition: background-image 0.3s ease, transform 0.3s ease; /* انتقال سلس */
     width: 25px; height: 25px; /* حدد حجم الزر إذا لزم */
   }
-  .btn_favorit.active {
+  .favorites.active {
     background-image: url('images/in_favorite.png') !important;
-    background-size: cover !important;
+ 
     background-color: rgba(255, 0, 0, 0.1); /* لون خلفية خفيف أحمر إذا أردت */
+  
   }
+  .mission_card button.edit,
+  .mission_card button.delete,
+  .mission_card button.favorites {
+    background-repeat: no-repeat;
+    background-position: center;
+  
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    
+  }
+ 
 `;
 document.head.appendChild(style);
