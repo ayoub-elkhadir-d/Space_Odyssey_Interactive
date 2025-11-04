@@ -1,0 +1,579 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  border: none;
+}
+body {
+  padding: 0px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 20px;
+}
+h1 {
+  font-family: sans-serif;
+}
+/*-----------------header-------------------*/
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===================== NAVBAR ===================== */
+.navbar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- top bar ---- */
+.navbar-top {
+  background-color: #000;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+}
+
+.logo {
+  width: 120px;
+}
+
+.search-lang {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.search-lang input {
+  height: 35px;
+  width: 200px;
+  border: none;
+  border-radius: 20px;
+  padding-left: 15px;
+  outline: none;
+}
+
+.search-lang select {
+  border: none;
+  background: #fff;
+  padding: 5px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.notificationlogo {
+  width: 25px;
+  cursor: pointer;
+}
+
+.personlogo {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #fff;
+}
+
+/* ---- bottom bar ---- */
+.navbar-bottom {
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 2px solid #ddd;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  list-style: none;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  font-size: 18px;
+  transition: color 0.3s, text-decoration 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.nav-links img {
+  width: 22px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.nav-links img:hover {
+  transform: scale(1.2);
+}
+
+.buttoncontact {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.buttoncontact:hover {
+  background-color: #0056b3;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .navbar-top {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-lang {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 16px;
+  }
+
+  .buttoncontact {
+    padding: 6px 12px;
+  }
+}
+/*---------------main-------------------------*/
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
+  gap: 30px;
+}
+
+/*----------------hero----------------------*/
+.earthhomelogo {
+  position: relative;
+  height: 20%;
+  width: 100vw;
+  z-index: 2;
+}
+.herocontener p {
+  text-align: center;
+  max-width: 80%;
+}
+
+.logosocial img {
+  width: 20px;
+}
+
+.earthlogo {
+  width: 100%;
+  height: 100%;
+}
+.herocontener {
+  position: relative;
+  height: 50vh;
+  width: 100vw;
+  opacity: 1;
+}
+.herotext p {
+  color: #ffffff;
+  font-size: 25px;
+}
+.herotext h1 {
+  position: absolute;
+  color: #ffffff;
+  font-size: 80px;
+  top: 20px;
+}
+
+.herotext {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100%;
+  padding: 10px 0px;
+  margin: 0px;
+}
+.herotext button {
+  position: absolute;
+  width: fit-content;
+  padding: 1%;
+  bottom: 20px;
+  border-radius: 50px;
+}
+
+/*----------------home------------------------*/
+
+
+/*--------------------misions---------------------*/
+.misions_div {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  z-index: 1;
+  justify-content: center;
+  gap: 20px;
+}
+.container_{
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+ 
+}
+.label_{
+text-align: center;
+flex: 1;
+font-size: 1rem;
+padding: 0px;
+margin: 0px;
+}
+#submit,#button_add{
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px  15px 2px #215712 ;
+  background-color: #2cbd00;
+  cursor: pointer;
+}
+.container_label_button {
+  width: 100%;
+  display: flex;
+  align-items: center; /* يحاذي العناصر رأسياً في الوسط */
+  gap: 10px;
+  justify-content: space-around; /* يوزع العناصر أفقياً: النص في الوسط، الزر في النهاية */
+}
+
+.label_ {
+  text-align: center; /* يحاذي النص أفقياً داخل العنصر */
+}
+
+.button_ {
+  
+  background-image: url(images/cancel_28dp_EA3323.png);
+  background-repeat: no-repeat;
+  background-position: center; /* يضمن صورة الزر في الوسط */
+  width: 22px;
+  height: 22px; /* إضافة ارتفاع للزر ليكون مربعاً */
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px #ff0000 ;
+  
+}
+.maisionscontainer {
+   gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+}
+.maisionscontainer p {
+  color: black;
+}
+
+.menu_icone:hover {
+  background-color: #666;
+  border-radius: 10px;
+}
+.mission_card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: rgb(255, 255, 255);
+  width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+  
+  box-shadow: 5px 5px 15px 5px #a5a5a5 ;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+
+ 
+}
+.mission_card ,.herocontener,.fother{
+  opacity: 1;
+}
+
+.misions_img {
+  width: 100%;
+  border-radius: 10px;
+}
+.mission_card h3 {
+  font-size: 1rem;
+}
+.container_ button{
+  background-color: #ffffff;
+  height: 26px;
+}
+.choix_et_menu_div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+
+  justify-content: space-evenly;
+}
+
+.menu_choix {
+  display: none;
+  gap: 10px;
+}
+.menu_choix li {
+  list-style: none;
+  width: fit-content;
+  cursor: pointer;
+}
+.menu_choix li div {
+  display: flex;
+  gap: 10px;
+}
+.menu_choix li div img {
+  width: 15px;
+  height: 15px;
+}
+.menu_choix li div h1:hover {
+  background-color: #666;
+  text-decoration: underline;
+}
+.menu_choix li div h1 {
+  font-size: 1rem;
+}
+.button_add {
+  background-color: #2cbd00;
+  bottom: 10%;
+  right: 10%;
+  width: fit-content;
+  
+}
+.btns:hover,.btn_suprimer:hover,.btn_favorit:hover{
+   cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px #484848 ;
+}
+.btns{
+
+ background-image: url("images/edit.png");
+ background-repeat: no-repeat;
+ background-position: center;
+ width: 24px;
+ 
+ 
+}
+.btn_suprimer{
+    background-color: #ff0000;
+ background-image: url("images/delete.png");
+ background-repeat: no-repeat;
+ background-position: center;
+ width: 24px;
+ height: 26px;
+  
+}
+
+.btn_favorit{
+    background-color: #ffffff;
+ background-image: url("images/favorite_28dp_000000_FILL0_wght400_GRAD0_opsz24.png");
+ background-repeat: no-repeat;
+ background-position: center;
+ object-fit: cover;
+ width: 24px;
+
+}
+main{
+  opacity:1 ;
+}
+.container_fv{
+  position:absolute;
+  top: 30%;
+  
+  right: auto;
+  width: fit-content;
+  height:fit-content;
+  z-index: 11;
+  background-color: #565656;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: none;
+ 
+  
+}
+.mission_card_edit{
+   box-shadow: 1px 1px  10px 5px rgb(0, 255, 13);
+   border-radius: 10px;
+     display: flex;
+  flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+     gap: 10px;
+}
+.mission_card_edit input{
+padding: 10px;
+cursor: text;
+border: 0.5px solid black;
+}
+
+.filter{
+
+background-color: #007bff;
+border-radius: 10px;
+
+}
+.select_1{
+  color: #19802d;
+}
+.filter_container{
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  background-color: #565656;
+  z-index: 12;
+  gap: 10px;
+  top: 60px;
+  padding: 30px;
+  right:  50px;
+  border-radius: 10px;
+}
+
+
+.popup {
+    display: none;
+    flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background-color: #19802d;
+  z-index: 2;
+  gap: 10px;
+  padding: 10px;
+}
+.popup input {
+
+ height: 40px;
+}
+
+
+/*------------footer-------------*/
+.fother {
+  background-color: black;
+  width: 100%;
+  color: white;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+  margin-top: auto; 
+}
+
+.logosocial .logofother {
+  width: 20%;
+  background-color: #ffffff;
+}
+
+.optionsfother h5 {
+  color: aliceblue;
+}
+.optionsfother input {
+  height: 30px;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+.optionsfother a {
+  color: rgb(255, 255, 255);
+  font-size: 10px;
+}
+.optionsfother a:hover {
+  color: rgb(255, 110, 110);
+}
+.optionsfother {
+  display: flex;
+  justify-content: space-around;
+}
+.f2 {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.f2 h1 {
+  font-size: 100%;
+  color: #ffffff;
+}
+.logofothers {
+  width: 20%;
+}
+/*-------------------------------------------------*/
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1rem;
+  }
+  .cards1 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .con2 {
+    flex-direction: column;
+  }
+  .imageofday_titre_et_p h1 {
+    font-size: 100%;
+  }
+  .imageofday_titre_et_p p {
+    font-size: 10px;
+  }
+  .growcontainimges {
+    flex-direction: column;
+  }
+  .plantescontainer {
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  .labelsinimg h1 {
+    font-size: 2rem;
+  }
+  .labelsinimg p {
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 1020px) {
+  .labelsinimg h1 {
+    font-size: 3rem;
+  }
+  .labelsinimg p {
+    font-size: 1.5rem;
+  }
+  .mission_card h3 {
+    font-size: 0.6rem;
+  }
+}
