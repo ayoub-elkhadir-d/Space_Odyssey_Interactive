@@ -1,7 +1,6 @@
 var missions = [
     {
         id: 1,
-        status: 1,
         in_favorite: 0,
         name: "Apollo 11",
         agency: "NASA",
@@ -11,7 +10,6 @@ var missions = [
     },
     {
         id: 2,
-        status: 1,
         in_favorite: 0,
         name: "Voyager 1",
         agency: "NASA",
@@ -21,7 +19,6 @@ var missions = [
     },
     {
         id: 3,
-        status: 1,
         in_favorite: 0,
         name: "Rosetta",
         agency: "ESA",
@@ -31,7 +28,6 @@ var missions = [
     },
     {
         id: 4,
-        status: 1,
         in_favorite: 1,
         name: "Curiosity",
         agency: "NASA",
@@ -41,7 +37,6 @@ var missions = [
     },
     {
         id: 5,
-        status: 1,
         in_favorite: 0,
         name: "Artemis I",
         agency: "NASA",
@@ -62,6 +57,27 @@ var buttonFilter = document.getElementById("filter");
 var filterContainer = document.getElementById("filter_container");
 var selectAgency = document.getElementById("select_2");
 var selectDate = document.getElementById("select_3");
+var alert_ch = document.getElementById("alert_show_");
+
+var currentSearch = "";
+var currentAgency = "";
+var currentDate = "";
+var isFilterVisible = false;
+
+function alert_message(message,color_){
+  const  alert_var =document.getElementById("alert__")
+const  h1_msg_ =document.getElementById("h1_msg")
+alert_var.style.display="flex"
+alert_var.style.height="50px"
+alert_var.style.backgroundColor =color_
+alert_var.style.transition="3s";
+
+h1_msg_.innerHTML = message
+  setTimeout(function(){
+alert_var.style.display="none"
+  },2000);
+
+}
 
 function displayMissions(index, type, content, container_) {
     if (type == "one") {
@@ -83,11 +99,9 @@ function displayMissions(index, type, content, container_) {
     if (type == "all") {
         var allHtml = "";
         for (var t = 0; t < missions.length; t++) {
-            if (missions[t].status == 1) {
-                var isFavorite = missions[t].in_favorite == 1 ? "active" : "";
-                var favoriteStyle = missions[t].in_favorite == 1 ? 'style="background-image: url(images/in_favorite.png);"' : '';
-                allHtml = allHtml + '<div class="mission_card"><div class="mission_card-content"><div class="buttons-container"><button class="edit" onclick="edit(' + t + ')"></button><button class="delete" onclick="deleteMission(' + t + ')"></button><button class="favorites ' + isFavorite + '" id="btn_' + t + '" onclick="toggleFavorite(' + t + ')" ' + favoriteStyle + '></button></div><img class="misions_img" src="' + missions[t].image + '" alt=""><h2>' + missions[t].name + '</h2><h3 class="agency">' + missions[t].agency + '</h3><p class="description">' + missions[t].objective + '</p><span class="date">' + missions[t].launchDate + '</span></div></div>';
-            }
+            var isFavorite = missions[t].in_favorite == 1 ? "active" : "";
+            var favoriteStyle = missions[t].in_favorite == 1 ? 'style="background-image: url(images/in_favorite.png);"' : '';
+            allHtml = allHtml + '<div class="mission_card"><div class="mission_card-content"><div class="buttons-container"><button class="edit" onclick="edit(' + t + ')"></button><button class="delete" onclick="deleteMission(' + t + ')"></button><button class="favorites ' + isFavorite + '" id="btn_' + t + '" onclick="toggleFavorite(' + t + ')" ' + favoriteStyle + '></button></div><img class="misions_img" src="' + missions[t].image + '" alt=""><h2>' + missions[t].name + '</h2><h3 class="agency">' + missions[t].agency + '</h3><p class="description">' + missions[t].objective + '</p><span class="date">' + missions[t].launchDate + '</span></div></div>';
         }
         container_.style.display = "flex";
         container_.innerHTML = allHtml;
@@ -100,44 +114,96 @@ function displayMissions(index, type, content, container_) {
     }
 }
 
+function applyDisplay() {
+    if (containerFv && window.getComputedStyle(containerFv).display != "none") {
+        containerFv.style.display = "none";
+        containerFv.innerHTML = "";
+    }
+    containerMissions.innerHTML = "";
+    containerMissions.style.display = "flex";
+
+    var count = 0;
+    var searchTerm = currentSearch.toLowerCase();
+    var isSearching = currentSearch != "";
+    var isFiltering = currentAgency != "" || currentDate != "";
+    for (var i = 0; i < missions.length; i++) {
+        var m = missions[i];
+        var matchesFilter = (currentAgency == "" || m.agency == currentAgency) && (currentDate == "" || m.launchDate == currentDate);
+        if (!matchesFilter) continue;
+        var matchesSearch = !isSearching ||
+            m.name.toLowerCase().indexOf(searchTerm) != -1 ||
+            m.agency.toLowerCase().indexOf(searchTerm) != -1 ||
+            m.objective.toLowerCase().indexOf(searchTerm) != -1 ||
+            m.launchDate.indexOf(searchTerm) != -1;
+        if (matchesSearch) {
+            displayMissions(i, "one", undefined, containerMissions);
+            count++;
+        }
+    }
+    var title;
+    if (count == 0 && (isSearching || isFiltering)) {
+        title = "No Results Found";
+    } else if (isSearching) {
+        title = "Result Search";
+    } else if (isFiltering) {
+        title = "Filter";
+    } else {
+        title = "Missions";
+    }
+    labelTitle.innerHTML = title;
+    if (isSearching || isFiltering) {
+        buttonCancel.style.visibility = "visible";
+    } else {
+        buttonCancel.style.visibility = "hidden";
+    }
+}
+
+function showAll() {
+    currentSearch = "";
+    currentAgency = "";
+    currentDate = "";
+    searchInput.value = "";
+    selectAgency.value = "";
+    selectDate.value = "";
+    applyDisplay();
+    if (filterContainer) filterContainer.style.display = isFilterVisible ? "flex" : "none";
+}
+
 function setupFilters() {
     if (selectAgency) selectAgency.innerHTML = '<option value="">All Agencies</option>';
     if (selectDate) selectDate.innerHTML = '<option value="">All Dates</option>';
     for (var i = 0; i < missions.length; i++) {
-        if (missions[i].status == 1) {
-            var agencyOption = '<option value="' + missions[i].agency + '">' + missions[i].agency + '</option>';
-            if (selectAgency.innerHTML.indexOf(agencyOption) == -1) {
-                selectAgency.innerHTML = selectAgency.innerHTML + agencyOption;
-            }
-            var dateOption = '<option value="' + missions[i].launchDate + '">' + missions[i].launchDate + '</option>';
-            if (selectDate.innerHTML.indexOf(dateOption) == -1) {
-                selectDate.innerHTML = selectDate.innerHTML + dateOption;
-            }
+        var agencyOption = '<option value="' + missions[i].agency + '">' + missions[i].agency + '</option>';
+        if (selectAgency.innerHTML.indexOf(agencyOption) == -1) {
+            selectAgency.innerHTML = selectAgency.innerHTML + agencyOption;
+        }
+        var dateOption = '<option value="' + missions[i].launchDate + '">' + missions[i].launchDate + '</option>';
+        if (selectDate.innerHTML.indexOf(dateOption) == -1) {
+            selectDate.innerHTML = selectDate.innerHTML + dateOption;
         }
     }
 }
 setupFilters();
 
 function displayFavorites() {
-    if (filterContainer) filterContainer.style.display = "none";
-
     var isVisible = containerFv && window.getComputedStyle(containerFv).display != "none";
-
+    containerFv.style.transition="2s" ;
     if (isVisible) {
         if (containerFv) {
             containerFv.style.display = "none";
             containerFv.innerHTML = "";
         }
-        containerMissions.innerHTML = "";
-        displayMissions(undefined, "all", undefined, containerMissions);
+        showAll();
         labelTitle.innerHTML = "Missions";
+        containerMissions.style.display = "flex";
     } else {
+        containerMissions.style.display = "none";
         if (containerFv) containerFv.innerHTML = "";
         labelTitle.innerHTML = "Favorites";
 
         var hasFavorites = false;
         for (var i = 0; i < missions.length; i++) {
-            if (missions[i].in_favorite == 1 && missions[i].status == 1) {
+            if (missions[i].in_favorite == 1) {
                 displayMissions(i, "one_fvavorit", undefined, containerFv);
                 hasFavorites = true;
             }
@@ -151,8 +217,16 @@ function displayFavorites() {
         }
 
         if (containerFv) containerFv.style.display = "flex";
-        containerMissions.innerHTML = "";
     }
+}
+
+function closeEditOrAdd() {
+    var overlay = document.getElementById("edit_overlay") || document.getElementById("add_overlay");
+    if (overlay) overlay.remove();
+    containerMissions.innerHTML = "";
+    showAll();
+    labelTitle.innerHTML = "Missions";
+    buttonCancel.style.visibility = "hidden";
 }
 
 function displayEdit(index) {
@@ -160,22 +234,15 @@ function displayEdit(index) {
         containerFv.style.display = "none";
         containerFv.innerHTML = "";
     }
-    labelTitle.innerHTML = "Edit Mission";
-    containerMissions.innerHTML = "";
+    if (filterContainer) filterContainer.style.display = isFilterVisible ? "flex" : "none";
+
     var mission = missions[index];
     var isFavorite = mission.in_favorite == 1 ? "active" : "";
     var favoriteStyle = mission.in_favorite == 1 ? 'style="background-image: url(images/in_favorite.png); background-size: cover;"' : '';
-    var editHtml = '<div class="mission_card mission_card_edit" id="edit_card"><div class="container_label_button"><h1 class="label_edit">Edit Mission</h1><button id="button_cancel_edit" class="button_">Cancel</button></div><div class="choix_et_menu_div"><button class="btn_supprimer" onclick="deleteMission(' + index + ')"></button><button class="btn_favorit ' + isFavorite + '" id="btn_' + index + '" onclick="toggleFavorite(' + index + ')" ' + favoriteStyle + '></button></div><img class="misions_img" src="' + mission.image + '" alt=""><input type="text" id="input_name" value="' + mission.name + '"><input type="text" id="input_agency" value="' + mission.agency + '"><input type="text" id="input_objective" value="' + mission.objective + '"><input type="date" id="input_date" value="' + mission.launchDate + '"><button id="submit" onclick="save(' + index + ')" style="align-self: center;">Save</button></div>';
+    var editHtml = '<div id="edit_overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999; display: flex; justify-content: center; align-items: center;"><div class="mission_card mission_card_edit" id="edit_card" style="position: relative; max-width: 400px; width: 90%; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); z-index: 1000;"><div class="container_label_button"><h1 class="label_edit">Edit Mission</h1><button id="button_cancel_edit" class="button_" onclick="closeEditOrAdd()" style="background: #ff4d4d; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Cancel</button></div><div class="choix_et_menu_div"></div><img class="misions_img" src="' + mission.image + '" alt=""><input type="text" id="input_name" value="' + mission.name + '"><input type="text" id="input_agency" value="' + mission.agency + '"><input type="text" id="input_objective" value="' + mission.objective + '"><input type="date" id="input_date" value="' + mission.launchDate + '"><input type="url" id="input_image" value="' + mission.image + '" placeholder="Enter image URL (optional)"><button id="submit" onclick="save(' + index + ')" style="align-self: center;">Save</button></div></div></div>';
     containerMissions.innerHTML = editHtml;
     containerMissions.style.display = "flex";
-
-    var cancelEditBtn = document.getElementById("button_cancel_edit");
-    if (cancelEditBtn) {
-        cancelEditBtn.addEventListener("click", function () {
-            containerMissions.innerHTML = "";
-            displayMissions(undefined, "all", undefined, containerMissions);
-        });
-    }
+    containerMissions.style.position = "relative";
 }
 
 function edit(index) {
@@ -184,12 +251,7 @@ function edit(index) {
 }
 
 function cancelAddMission() {
-    var overlay = document.getElementById("add_overlay");
-    if (overlay) overlay.remove();
-    containerMissions.innerHTML = "";
-    displayMissions(undefined, "all", undefined, containerMissions);
-    labelTitle.innerHTML = "Missions";
-    buttonCancel.style.visibility = "hidden";
+    closeEditOrAdd();
 }
 
 buttonAdd.addEventListener("click", function () {
@@ -197,7 +259,6 @@ buttonAdd.addEventListener("click", function () {
         containerFv.style.display = "none";
         containerFv.innerHTML = "";
     }
-    if (filterContainer) filterContainer.style.display = "none";
 
     var addCard = document.getElementById("add_card");
     if (addCard) {
@@ -209,7 +270,7 @@ buttonAdd.addEventListener("click", function () {
     labelTitle.innerHTML = "Add Mission";
     buttonCancel.style.visibility = "visible";
 
-    var addHtml = '<div id="add_overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999; display: flex; justify-content: center; align-items: center;"><div class="mission_card mission_card_edit add" id="add_card" style="position: relative; max-width: 400px; width: 90%; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); z-index: 1000;"><div class="container_label_button"><h1 class="label_add">Add Mission</h1><button id="button_cancel_add" class="button_" onclick="cancelAddMission()" style="background: #ff4d4d; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Cancel</button></div><input type="text" id="input_name_add" placeholder="Enter name" style="width: 100%; margin: 10px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"><input type="text" id="input_agency_add" placeholder="Enter agency" style="width: 100%; margin: 10px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"><input type="text" id="input_objective_add" placeholder="Enter objective" style="width: 100%; margin: 10px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"><input type="date" id="input_date_add" style="width: 100%; margin: 10px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"><button id="submit_add" onclick="submitNewMission()" style="width: 100%; padding: 10px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px;">Save</button></div></div>';
+    var addHtml = '<div id="add_overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999; display: flex; justify-content: center; align-items: center;"><div class="mission_card mission_card_edit add" id="add_card" style="position: relative; max-width: 400px; width: 90%; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); z-index: 1000;"><div class="container_label_button"><h1 class="label_add">Add Mission</h1><button id="button_cancel_add" class="button_" onclick="cancelAddMission()" style="background: #ff4d4d; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Cancel</button></div><input type="text" id="input_name_add" placeholder="Enter name" style="width: 100%; margin: 10px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"><input type="text" id="input_agency_add" placeholder="Enter agency" style="width: 100%; margin: 10px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"><input type="text" id="input_objective_add" placeholder="Enter objective" style="width: 100%; margin: 10px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"><input type="date" id="input_date_add" style="width: 100%; margin: 10px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"><input type="url" id="input_image_add" placeholder="Enter image URL (optional)" style="width: 100%; margin: 10px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"><button id="submit_add" onclick="submitNewMission()" style="width: 100%; padding: 10px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px;">Save</button></div></div>';
     containerMissions.innerHTML = addHtml;
     containerMissions.style.display = "flex";
     containerMissions.style.position = "relative";
@@ -224,28 +285,32 @@ function submitNewMission() {
     var inputAgency = document.getElementById("input_agency_add");
     var inputObjective = document.getElementById("input_objective_add");
     var inputDate = document.getElementById("input_date_add");
+    var inputImage = document.getElementById("input_image_add");
 
     var nameVal = inputName.value.trim();
     var agencyVal = inputAgency.value.trim();
     var objectiveVal = inputObjective.value.trim();
     var dateVal = inputDate.value;
+    var imageVal = inputImage ? inputImage.value.trim() : "";
 
     if (nameVal && agencyVal && objectiveVal && dateVal) {
         var newMission = {
             id: missions.length + 1,
-            status: 1,
             in_favorite: 0,
             name: nameVal,
             agency: agencyVal,
             objective: objectiveVal,
             launchDate: dateVal,
-            image: "images/rosetta.png"
+            image: imageVal || "images/rosetta.png"
         };
         missions.push(newMission);
+        setupFilters();
 
         if (overlay) overlay.remove();
         containerMissions.innerHTML = "";
-        displayMissions(undefined, "all", undefined, containerMissions);
+
+        showAll();
+        alert_message("Added New Mission! " +`${newMission.name}` , "green")
         labelTitle.innerHTML = "Missions";
         buttonCancel.style.visibility = "hidden";
 
@@ -253,21 +318,24 @@ function submitNewMission() {
         inputAgency.value = "";
         inputObjective.value = "";
         inputDate.value = "";
-    } else {
-        var addCard = document.getElementById("add_card");
-        if (addCard) {
-            addCard.style.boxShadow = "0 0 10px 5px rgb(201, 0, 0)";
-            setTimeout(function() { addCard.style.boxShadow = ""; }, 2000);
-        }
+        if (inputImage) inputImage.value = "";
     }
 }
 
 function deleteMission(index) {
-    missions[index].status = 0;
+   let userConfirmed = confirm("Are you sure you want to delet?");
+   
+            if (userConfirmed) {
+                missions.splice(index, 1);
+                setupFilters();
     containerMissions.innerHTML = "";
-    displayMissions(undefined, "all", undefined, containerMissions);
+    showAll();
+    alert_message("deleted !" + `${missions[index].name}`, "red")
+            } else {  
+                return;
+            } 
+    
 }
-
 
 function toggleFavorite(d) {
     missions[d].in_favorite = missions[d].in_favorite == 0 ? 1 : 0;
@@ -280,16 +348,32 @@ function toggleFavorite(d) {
             btn.style.backgroundImage = "url('images/in_favorite.png')";
             btn.style.backgroundSize = "cover";
             btn.style.backgroundColor = "";
+            alert_message("Added to favorite ! " +` ${missions[d].name}`, "green")
         } else {
             btn.style.backgroundImage = "";
             btn.style.backgroundSize = "";
             btn.style.backgroundColor = "";
+            alert_message('Removed from favorites! ' + `${missions[d].name}`, "red")
         }
     }
-    containerMissions.innerHTML = "";
-    displayMissions(undefined, "all", undefined, containerMissions);
+    showAll();
+    if (containerFv && window.getComputedStyle(containerFv).display != "none") {
+        containerFv.innerHTML = "";
+        var hasFavorites = false;
+        for (var i = 0; i < missions.length; i++) {
+            if (missions[i].in_favorite == 1) {
+                displayMissions(i, "one_fvavorit", undefined, containerFv);
+                hasFavorites = true;
+            }
+        }
+        if (!hasFavorites) {
+            labelTitle.innerHTML = "No Favorites Found";
+            containerFv.innerHTML = '<p style="color: white; text-align: center;">No favorites yet.</p>';
+        } else {
+            labelTitle.innerHTML = "Favorites";
+        }
+    }
 }
-
 
 function save(index) {
     var card = document.getElementById("edit_card");
@@ -297,126 +381,74 @@ function save(index) {
     var inputAgency = document.getElementById("input_agency");
     var inputObjective = document.getElementById("input_objective");
     var inputDate = document.getElementById("input_date");
+    var inputImage = document.getElementById("input_image");
 
     var nameVal = inputName.value.trim();
     var agencyVal = inputAgency.value.trim();
     var objectiveVal = inputObjective.value.trim();
     var dateVal = inputDate.value;
+    var imageVal = inputImage ? inputImage.value.trim() : missions[index].image;
 
     if (nameVal && agencyVal && objectiveVal && dateVal) {
         missions[index].name = nameVal;
         missions[index].agency = agencyVal;
         missions[index].objective = objectiveVal;
         missions[index].launchDate = dateVal;
+        missions[index].image = imageVal;
         containerMissions.innerHTML = "";
-        displayMissions(undefined, "all", undefined, containerMissions);
-    } else {
-        if (card) card.style.boxShadow = "1px 1px 10px 5px rgb(201, 0, 0)";
+        let userConfirmed = confirm("Are you sure you want to save changes ?");
+   
+            if (userConfirmed) {
+                setupFilters();
+            showAll();
+            alert_message("Edited !", "green")
+            }else ;
     }
 }
 
-
 buttonCancel.addEventListener("click", function () {
+    showAll();
     if (containerFv) {
         containerFv.style.display = "none";
         containerFv.innerHTML = "";
     }
-    if (filterContainer) filterContainer.style.display = "none";
-    containerMissions.innerHTML = "";
-    displayMissions(undefined, "all", undefined, containerMissions);
-    labelTitle.innerHTML = "Missions";
-    buttonCancel.style.visibility = "hidden";
 });
-
 
 favLogo.addEventListener("click", displayFavorites);
 
-
 searchInput.addEventListener("keyup", function () {
     var searchTerm = searchInput.value.toLowerCase().trim();
-    if (containerFv && containerFv.style.display == "flex") {
-        containerFv.style.display = "none";
-        containerFv.innerHTML = "";
-    }
-    if (filterContainer) filterContainer.style.display = "none";
-    containerMissions.innerHTML = "";
-    if (searchTerm) {
-        buttonCancel.style.visibility = "visible";
-        labelTitle.innerHTML = "Result Search";
-        var hasResults = false;
-        for (var i = 0; i < missions.length; i++) {
-            var nameLower = missions[i].name.toLowerCase();
-            if (nameLower.indexOf(searchTerm) != -1 && missions[i].status == 1) {
-                displayMissions(i, "one", undefined, containerMissions);
-                hasResults = true;
-            }
-        }
-        if (!hasResults) labelTitle.innerHTML = "No Results Found";
-    } else {
-        displayMissions(undefined, "all", undefined, containerMissions);
-        labelTitle.innerHTML = "Missions";
-        buttonCancel.style.visibility = "hidden";
-    }
+    currentSearch = searchTerm;
+    applyDisplay();
 });
 
 selectAgency.addEventListener("change", function () {
-    if (containerFv && containerFv.style.display == "flex") {
-        containerFv.style.display = "none";
-        containerFv.innerHTML = "";
-    }
-    containerMissions.innerHTML = "";
-    filterContainer.style.display = "none";
-    var selectedValue = selectAgency.value;
-    var hasResults = false;
-    for (var i = 0; i < missions.length; i++) {
-        if ((selectedValue == "" || missions[i].agency == selectedValue) && missions[i].status == 1) {
-            buttonCancel.style.visibility = "visible";
-            labelTitle.innerHTML = "Filter";
-            displayMissions(i, "one", undefined, containerMissions);
-            hasResults = true;
-        }
-    }
-    if (!hasResults) labelTitle.innerHTML = "No Results Found";
+    currentAgency = selectAgency.value;
+    applyDisplay();
 });
 
 selectDate.addEventListener("change", function () {
-    if (containerFv && containerFv.style.display == "flex") {
-        containerFv.style.display = "none";
-        containerFv.innerHTML = "";
-    }
-    containerMissions.innerHTML = "";
-    filterContainer.style.display = "none";
-    var selectedValue = selectDate.value;
-    var hasResults = false;
-    for (var i = 0; i < missions.length; i++) {
-        if ((selectedValue == "" || missions[i].launchDate == selectedValue) && missions[i].status == 1) {
-            buttonCancel.style.visibility = "visible";
-            labelTitle.innerHTML = "Filter";
-            displayMissions(i, "one", undefined, containerMissions);
-            hasResults = true;
-        }
-    }
-    if (!hasResults) labelTitle.innerHTML = "No Results Found";
+    currentDate = selectDate.value;
+    applyDisplay();
 });
 
 buttonFilter.addEventListener("click", function () {
-    if (filterContainer.style.display == "flex") {
-        filterContainer.style.display = "none";
-    } else {
-        filterContainer.style.display = "flex";
-    }
+    isFilterVisible = !isFilterVisible;
+    if (filterContainer) filterContainer.style.display = isFilterVisible ? "flex" : "none";
 });
 
-
 document.addEventListener("click", function (e) {
-    if (e.target.id == "button_cancel_add" || e.target.id == "add_overlay") {
+    var overlay = document.getElementById("edit_overlay") || document.getElementById("add_overlay");
+    if (overlay && e.target === overlay) {
+        closeEditOrAdd();
+    }
+    if (e.target.id == "button_cancel_add") {
         cancelAddMission();
     }
 });
-
 
 var style = document.createElement('style');
 style.textContent = '.favorites { background-color: transparent; background-repeat: no-repeat; background-position: center; background-size: contain; transition: background-image 0.3s ease, transform 0.3s ease; width: 25px; height: 25px; } .favorites.active { background-image: url("images/in_favorite.png") !important; background-color: rgba(255, 0, 0, 0.1); } .mission_card button.edit, .mission_card button.delete, .mission_card button.favorites { background-repeat: no-repeat; background-position: center; width: 25px; height: 25px; padding: 0; border: none; cursor: pointer; }';
 document.head.appendChild(style);
 
-displayMissions(undefined, "all", undefined, containerMissions);
+showAll();

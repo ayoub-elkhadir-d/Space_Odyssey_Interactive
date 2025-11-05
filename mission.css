@@ -60,6 +60,10 @@ h1 {
   padding-left: 15px;
   outline: none;
 }
+.filtert{
+    padding: 10px;
+    border-radius: 5px;
+}
 
 .search-lang select {
   border: none;
@@ -285,7 +289,7 @@ margin: 0px;
   
 }
 .mission_card {
-      background: #8a909a;
+      background: #ececec;
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 15px;
       overflow: hidden;
@@ -296,11 +300,33 @@ margin: 0px;
       padding: 10px;
     }
 /* تحسين حاوية الـ Popup للتمرير الرأسي السلس */
+
+.notify{  
+  position:fixed;
+  top:0px;
+  display: none;
+  
+  justify-content: center;
+  text-align: center;
+  width:100%;
+  height: fit-content;  
+  padding: 10px;
+  box-sizing:border-box;
+  color:white;  
+  text-align:center;
+  background:rgb(107, 107, 107);
+  overflow:hidden;
+  box-sizing:border-box;
+  z-index: 300;
+  
+  
+}
 #popup_fv {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background-color: #215712;
+
+  background-color: #696969;
   position: absolute;
   right: 10px;
   top: 55px;
@@ -342,7 +368,8 @@ margin: 0px;
 
 /* منع تقلص البطاقات داخل الـ popup تحديداً */
 #popup_fv .mission_card {
-  background: #8a909a;
+
+  background: #e1e1e1;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 15px;
   overflow: hidden;
@@ -412,7 +439,7 @@ margin: 0px;
       font-size: 0.85rem;
       color: #000000;
       font-weight: 600;
-      background-image: url(images/calendar_month_28dp_FFFFFF\ \(1\).png);
+      
       text-align: right;
       display: block;
       margin-bottom: 15px;
