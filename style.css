@@ -111,7 +111,7 @@ h1 {
 
 /* ---- bottom bar ---- */
 .navbar-bottom {
-  background: rgba(255,255,255,0.05);
+  background: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -129,7 +129,7 @@ h1 {
 
 .nav-links li a {
   text-decoration: none;
-  color: rgba(255,255,255,0.9);
+  color: rgba(0, 0, 0, 0.9);
   font-weight: 600;
   font-size: 18px;
   transition: color 0.3s, text-shadow 0.3s;
