@@ -31,7 +31,7 @@ h1 {
   width: 100%;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #000428 0%, #004e92 100%);
+  background: linear-gradient(135deg, #696969 0%, #000000 100%);
   box-shadow: 0 4px 20px rgba(0, 68, 40, 0.3);
 }
 
@@ -61,7 +61,7 @@ h1 {
   height: 40px;
   width: 250px;
   border: none;
-  border-radius: 25px;
+  border-radius: 10px;
   padding: 0 20px;
   outline: none;
   background: rgba(255,255,255,0.9);
@@ -143,7 +143,7 @@ h1 {
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #007bff, #00d4ff);
+  background: linear-gradient(90deg, #000000, #5b5b5b);
   transition: width 0.3s ease;
 }
 

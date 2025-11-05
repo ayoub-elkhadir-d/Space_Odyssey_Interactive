@@ -10,7 +10,7 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  gap: 20px;
+ 
   background-color: #ffffff;
 }
 h1 {
@@ -30,16 +30,19 @@ h1 {
   width: 100%;
   display: flex;
   flex-direction: column;
+    background: linear-gradient(135deg, #696969 0%, #000000 100%);
+  box-shadow: 0 4px 20px rgba(0, 68, 40, 0.3);
 }
 
 /* ---- top bar ---- */
 .navbar-top {
-  background-color: #000;
+  background-color: transparent;
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 30px;
+  padding: 15px 40px;
+  
 }
 
 .logo {
